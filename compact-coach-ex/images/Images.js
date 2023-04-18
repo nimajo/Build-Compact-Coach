@@ -1,0 +1,1 @@
+export const woman1 = require('../images/Woman1.png'); 
