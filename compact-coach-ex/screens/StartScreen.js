@@ -26,8 +26,8 @@ const StartScreen = () => {
 
             {/** Welcome Text */}
             <SafeAreaView style={{
-                marginRight:5,
-                marginLeft:5,
+                marginRight:8,
+                marginLeft:8,
                 marginTop:40,
             }}>
             <Text className="flex-row text-center text-lg leading-relaxed font-extralight dark:text-black tracking-tight">

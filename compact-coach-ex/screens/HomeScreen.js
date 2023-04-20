@@ -1,34 +1,18 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { Text, TextInput, View, StyleSheet, Image, KeyboardAvoidingView,} from 'react-native'
+import React, {useLayoutEffect, useState } from 'react'
+import { useNavigation } from '@react-navigation/native'
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Button, Input, Icon } from '@rneui/themed'
+
 
 const HomeScreen = () => {
+  const navigation = useNavigation();
+  const [email,setEmail] = useState("");
+  const [password,setPassword] = useState(""); 
   return (
-    <View>
-      <Text>HomeScreen</Text>
-
-            {/** Start Button */}
-            <Button
-              title="Start"
-              onPress={() => navigation.navigate('Login')}
-              buttonStyle={{
-                alignItems:"center",
-                backgroundColor: '#E9663B',
-                borderWidth: 2,
-                borderColor: 'white',
-                borderRadius: 30,
-              }}
-              containerStyle={{
-                
-                width: 200,
-                marginHorizontal: 100,
-                marginVertical: 60,
-                
-              }}
-              titleStyle={{ fontWeight: 'bold' }}></Button>
-              
-
-
-    </View>
+    <KeyboardAvoidingView style={{ flex: 1,alignItems:'center',marginTop:300 }} behavior="padding"> 
+ 
+    </KeyboardAvoidingView>
   )
 }
 

@@ -9,10 +9,11 @@ import { Button, Input, Icon } from '@rneui/themed'
 
 
 
+
 const LoginScreen = () => {
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState(""); 
-  React.useEffect(() => {console.log('mount'); return () => console.log('unmount')},[]);
+  
     const navigation = useNavigation();
 
   
@@ -28,61 +29,60 @@ const LoginScreen = () => {
 
   return (
 
-    <KeyboardAvoidingView style={{ flex: 1}}> 
-    <View style={{ flex: 1,alignItems:'center' }} behavior="padding">
+    <KeyboardAvoidingView style={{ flex: 1,alignItems:'center' }} behavior="padding"> 
+
+
       
-      {/** Sign In Text*/}
-    <View style={{justifyContent:'center', alignItems:"center",marginTop:100}}>
-      <Text style={{fontSize:30,fontWeight:'bold'}}>Sign In</Text>
-
-      <Text style={{fontSize:18,marginTop:8,fontWeight:'bold'}}>Welcome Back to Compact-coach</Text>
-
-    </View>
+                {/** Sign In Text*/}
+                <View style={{justifyContent:'center', alignItems:"center",marginTop:100}}>
+                  <Text style={{fontSize:30,fontWeight:'bold'}}>Sign In</Text>
+                  <Text style={{fontSize:18,marginTop:8,fontWeight:'bold'}}>Welcome Back to Compact-Coach</Text>
+                </View>
 
 
 
       {/** Input Fields */}
 
-      <SafeAreaView style={{marginTop:50}}>
+      <View style={{marginTop:50}}>
 
-        <View style={{flexDirection:"row",alignItems:"center"}}>
+                  <View style={{flexDirection:"row",alignItems:"center",marginTop:50}}>
 
 
-        <Icon type='font-awesome' name= "user-o" size={24}/>
-        <TextInput 
-        style={{
-          borderBottomWidth:1,
-          borderBottomColor:"gray",
-          width:300,marginVertical:10,
-          marginLeft:10,
-          fontSize:email ? 18 : 18,
-          
-        }}
-        placeholder='Email' 
-        value={email}
-        onChangeText={(text) => setEmail(text) }
-        placeholderTextColor="black"
-        />
-        </View>
+                  <Icon type='font-awesome' name= "envelope-o" size={24}/>
+                  <TextInput 
+                  style={{
+                    borderBottomWidth:1,
+                    borderBottomColor:"gray",
+                    width:300,marginVertical:10,
+                    marginLeft:10,
+                    fontSize:email ? 18 : 18,
+                    
+                  }}
+                  placeholder='Email' 
+                  value={email}
+                  onChangeText={(text) => setEmail(text) }
+                  placeholderTextColor="black"
+                  />
+                  </View>
 
-        <SafeAreaView style={{flexDirection:"row",alignItems:"center"}}>
+                  <View style={{flexDirection:"row",alignItems:"center"}}>
 
-        <Icon type='font-awesome' name= "unlock" size={24}/>
-        <TextInput 
-        style={{
-          borderBottomWidth:1,
-          borderBottomColor:"gray",
-          width:300,marginVertical:30,
-          marginLeft:10,
-          fontSize:password ? 18 : 18,
-        }}
-        placeholder='Password' 
-        value={password}
-        onChangeText={(text) => setPassword(text)}
-        secureTextEntry
-        placeholderTextColor="black"
-        />  
-        </SafeAreaView>    
+                  <Icon type='font-awesome' name= "unlock" size={24}/>
+                  <TextInput 
+                  style={{
+                    borderBottomWidth:1,
+                    borderBottomColor:"gray",
+                    width:300,marginVertical:30,
+                    marginLeft:10,
+                    fontSize:password ? 18 : 18,
+                  }}
+                  placeholder='Password' 
+                  value={password}
+                  onChangeText={(text) => setPassword(text)}
+                  secureTextEntry
+                  placeholderTextColor="black"
+                  />  
+                  </View>    
         
 
 
@@ -134,7 +134,7 @@ const LoginScreen = () => {
         
         
         
-        </SafeAreaView> 
+        </View> 
 
 
 
@@ -169,19 +169,15 @@ const LoginScreen = () => {
 
 
 
-            {/** Illustration Border */}
-            <View className="w-full h-full"
-            style={{ flex: 1, justifyContent: 'flex-end', position:'absolute', }}>
-            <Image style={{ flex: 1, justifyContent: 'flex-end', position:'absolute', }}
-            source={require("../images/Path1x.png")} 
-            className="object-contain h-48 w-full position absolute"/>
-            </View>
+                     
+                     
+                     
 
 
 
 
 
-    </View>
+
     </KeyboardAvoidingView> 
   )
 }
@@ -201,4 +197,11 @@ const styles = StyleSheet.create({
   titleContainer:{
 
   },  
+  circle: {
+    width: 100,
+    height: 100,
+    borderRadius: 100 / 2,
+    backgroundColor: "#E9663B",
+  },
+  
 });
