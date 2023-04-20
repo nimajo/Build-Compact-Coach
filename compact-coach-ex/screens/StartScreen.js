@@ -1,38 +1,35 @@
 import {StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useLayoutEffect } from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Image } from 'react-native'
-
 import { Button } from '@rneui/themed';
 
 
 
 const StartScreen = () => {
     const navigation = useNavigation();
-
     useLayoutEffect(() => {
         navigation.setOptions({
             headerTitle:"Start",
             headerShown:false,
         });
     }, []);
+
  
     return (
-        <SafeAreaView style={{ flex: 1 }}>
+        <View style={{ flex: 1 }}>
         
-
-
             
 
-            {/** Header */}
-            <View className="flex-row pb-3 items-center mx-4 space-x-2">
-                <Text className="text-base">
-                    
-                </Text>
-            </View>
+
 
             {/** Welcome Text */}
+            <SafeAreaView style={{
+                marginRight:5,
+                marginLeft:5,
+                marginTop:40,
+            }}>
             <Text className="flex-row text-center text-lg leading-relaxed font-extralight dark:text-black tracking-tight">
                 Welcome to Compact-Coach, your ultimate fitness partner. 
                 Whether you're just starting out your fitness journey or looking to take your workouts to the next level,
@@ -41,27 +38,28 @@ const StartScreen = () => {
                 Lets get started on your path to a healthier,
                 stronger you!
             </Text>
+            </SafeAreaView>
 
 
 
 
-
-
-
-            
+            {/** Start Button */}
             <Button
               title="Start"
               onPress={() => navigation.navigate('Login')}
               buttonStyle={{
+                alignItems:"center",
                 backgroundColor: '#E9663B',
                 borderWidth: 2,
                 borderColor: 'white',
                 borderRadius: 30,
               }}
               containerStyle={{
+                
                 width: 200,
                 marginHorizontal: 100,
                 marginVertical: 60,
+                
               }}
               titleStyle={{ fontWeight: 'bold' }}></Button>
               
@@ -70,18 +68,16 @@ const StartScreen = () => {
 
 
 
-
-
-
-            {/** Illustration */}
-            <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-            <Image source={require("../images/Woman1.png")} className="mx-auto flex justify-center " />
-
+            {/** Illustration Woman */}
+            <View className="w-full h-full"
+            style={{ flex: 1, justifyContent: 'flex-end', marginBottom:-15, }}>
+            
+            <Image source={require("../images/Woman1.png")} className="h-full w-full" />
             </View>
 
 
             
-        </SafeAreaView>
+        </View>
     )
 }
 
