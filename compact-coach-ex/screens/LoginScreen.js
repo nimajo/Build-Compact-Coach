@@ -90,31 +90,31 @@ const LoginScreen = () => {
        
         
         <Button 
-              onPress={signIn}
-              title="Login"
-              icon={{
-                name: 'arrow-right',
-                type: 'font-awesome',
-                size: 15,
-                color: 'white',
-              }}
-              iconRight
-              iconContainerStyle={{ marginLeft: 10 }}
-              titleStyle={{ fontWeight: '700' }}
-              buttonStyle={{
-                backgroundColor: '#E9663B',
-                borderColor: 'transparent',
-                borderWidth: 0,
-                borderRadius: 30,
-              }}
-              containerStyle={{
-                width: 200,
-                marginHorizontal: 80,
-                marginVertical: 70,
-              }}
-            />
+                onPress={signIn}
+                title="Login"
+                icon={{
+                  name: 'arrow-right',
+                  type: 'font-awesome',
+                  size: 15,
+                  color: 'white',
+                }}
+                iconRight
+                iconContainerStyle={{ marginLeft: 10 }}
+                titleStyle={{ fontWeight: '700' }}
+                buttonStyle={{
+                  backgroundColor: '#E9663B',
+                  borderColor: 'transparent',
+                  borderWidth: 0,
+                  borderRadius: 30,
+                }}
+                containerStyle={{
+                  width: 200,
+                  marginHorizontal: 80,
+                  marginVertical: 70,
+                }}
+                />
 
-        <Button
+          <Button
               onPress={() => navigation.navigate('Register')}
               containerStyle={{
                 width: 200,

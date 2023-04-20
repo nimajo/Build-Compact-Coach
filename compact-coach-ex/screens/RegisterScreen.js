@@ -1,9 +1,12 @@
-import { Text, TextInput, TouchableOpacity, TouchableHighlight, View, StyleSheet, Image, KeyboardAvoidingView, Pressable } from 'react-native'
+import { Text, TextInput, TouchableOpacity, TouchableHighlight, View, StyleSheet, Image, KeyboardAvoidingView, Pressable, Alert } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Input, Icon } from '@rneui/themed'
 import { grey } from '@mui/material/colors';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth,db } from '../firebase';
+import { doc, setDoc } from 'firebase/firestore';
 
 
 
@@ -14,6 +17,48 @@ const RegisterScreen = () => {
      const [password,setPassword] = useState("");
      const [fname,setFname] = useState("");
      const [weight,setWeight] = useState("");
+     const navigation = useNavigation();
+     const register = () => {
+      if (email === "" || password === "" || fname === "" || weight === ""){
+        Alert.alert('Missing Details', 'Please Fill in all the Fields', [
+          {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+          {text: 'OK', onPress: () => console.log('OK Pressed')},
+        ],
+        {cancelable:false}
+        );
+      }
+      createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        console.log("user credential", userCredential);
+        const user = userCredential.user.email;
+        const myUserUid = auth.currentUser.uid;
+        setDoc(
+          doc(db, "users", `${myUserUid}`),
+          {
+            email: user,
+            fname: fname,
+            weight: weight,
+          }
+        ).then(() => {
+          console.log("Document successfully written!");
+        }).catch((error) => {
+          console.error("Error writing document: ", error);
+        });
+      })
+      .catch((error) => {
+        console.error("Error creating user: ", error);
+     })};
+
+
+
+
+
+
+
   return (
      <KeyboardAvoidingView style={{ flex: 1,alignItems:'center' }} behavior="padding"> 
      <SafeAreaView>
@@ -26,7 +71,7 @@ const RegisterScreen = () => {
      {/** Input Fields */}
 
 
-
+          {/** Email */}
           <View style={{flexDirection:"row",alignItems:"center",marginTop:50}}>
           <Icon type='font-awesome' name= "envelope-o" size={24}/>
           <TextInput 
@@ -43,7 +88,7 @@ const RegisterScreen = () => {
           placeholderTextColor="black"
           />
           </View>
-
+            {/** Name  */}
           <View style={{flexDirection:"row",alignItems:"center"}}>
           <Icon type='font-awesome' name= "user-o" size={24}/>
           <TextInput 
@@ -60,6 +105,7 @@ const RegisterScreen = () => {
           placeholderTextColor="black"/> 
           </View>
 
+          {/** Password  */}
           <View style={{flexDirection:"row",alignItems:"center",marginTop:5}}>
           <Icon type='font-awesome' name= "unlock" size={24}/>
           <TextInput 
@@ -77,6 +123,7 @@ const RegisterScreen = () => {
           secureTextEntry/>
           </View>
 
+          {/** Bodyweight  */}
           <View style={{flexDirection:"row",alignItems:"center",marginTop:15}}>
           <Icon type='font-awesome' name= "balance-scale" size={24}/>
           <TextInput 
@@ -87,20 +134,59 @@ const RegisterScreen = () => {
           marginLeft:10,
           fontSize:weight ? 18 : 18,
           }}
-          placeholder='body weight in kg' 
+          placeholder='Body weight/kg' 
           value={weight}
-          onChange={(number) => setWeight(number) }
+          onChangeText={(text) => setWeight(text) }
           placeholderTextColor="black"
             />
           </View>
 
 
+          {/** Register Button  */}
+          <Button 
+          onPress={register}
+          title="Register"
+          icon={{
+            name: 'arrow-right',
+            type: 'font-awesome',
+            size: 15,
+            color: 'white',
+          }}
+          iconRight
+          iconContainerStyle={{ marginLeft: 10 }}
+          titleStyle={{ fontWeight: '700' }}
+          buttonStyle={{
+            backgroundColor: '#E9663B',
+            borderColor: 'transparent',
+            borderWidth: 0,
+            borderRadius: 30,
+          }}
+          containerStyle={{
+            width: 200,
+            marginHorizontal: 80,
+            marginVertical: 70,
+          }}
+          />
+
+          {/** Sign In Button  */}
 
 
-
-
-
-
+          <Button
+              onPress={() => navigation.goBack()}
+              containerStyle={{
+                width: 200,
+                marginHorizontal:80,
+                marginVertical: -50,
+              }}
+              title="Already Signed Up? Press here to Login"
+              type="clear"
+              titleStyle={{ color: "#2089dc" }}
+            />
+        
+        
+        
+        
+        
 
 
 
