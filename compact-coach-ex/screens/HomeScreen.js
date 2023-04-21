@@ -12,7 +12,7 @@ const HomeScreen = () => {
     <KeyboardAvoidingView style={{ flex: 1,alignItems:'center',marginTop:300 }} behavior="padding"> 
     <Text className="text-red-500">HOME SCREEN </Text>
 
-    <Text>Test Test</Text>
+    
 
 
 
