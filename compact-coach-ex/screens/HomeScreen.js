@@ -7,11 +7,15 @@ import { Button, Input, Icon } from '@rneui/themed'
 
 const HomeScreen = () => {
   const navigation = useNavigation();
-  const [email,setEmail] = useState("");
-  const [password,setPassword] = useState(""); 
+
   return (
     <KeyboardAvoidingView style={{ flex: 1,alignItems:'center',marginTop:300 }} behavior="padding"> 
- 
+    <Text className="text-red-500">HOME SCREEN </Text>
+
+    <Text>Test Test</Text>
+
+
+
     </KeyboardAvoidingView>
   )
 }
