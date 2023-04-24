@@ -27,7 +27,7 @@ const LoginScreen = () => {
           setLoading(false);
         }
       if(authUser){
-        navigation.navigate("Home");
+        navigation.push("Home");
       }
     });
     return unsubscribe;
@@ -52,7 +52,7 @@ const LoginScreen = () => {
     <SafeAreaView>
       {loading ? (
         <View>
-          <Text>Loading</Text>
+          <Text style={{flex:1 ,alignContent:"center"}}>Loading</Text>
           <ActivityIndicator size="large" color={"red"}></ActivityIndicator>
         </View>
       ):(

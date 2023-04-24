@@ -6,7 +6,8 @@ import { Button, Input, Icon } from '@rneui/themed'
 import { grey } from '@mui/material/colors';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth,db } from '../firebase';
-import { doc, setDoc } from 'firebase/firestore';
+import { setDoc } from 'firebase/firestore';
+import { doc, getDoc } from "firebase/firestore";
 
 
 
@@ -31,28 +32,38 @@ const RegisterScreen = () => {
         {cancelable:false}
         );
       }
+    
       createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        console.log("user credential", userCredential);
-        const user = userCredential.user.email;
-        const myUserUid = auth.currentUser.uid;
-        setDoc(
-          doc(db, "users", `${myUserUid}`),
-          {
-            email: user,
-            fname: fname,
-            weight: weight,
-          }
-        ).then(() => {
+        const user = userCredential.user;
+        const myUserUid = user.uid;
+        setDoc(doc(db, "users", myUserUid), {
+          email: user.email,
+          fname: fname,
+          weight: weight,
+        }).then(() => {
           console.log("Document successfully written!");
+    
+          // Retrieve the user's document from Firestore and log the data
+          getDoc(doc(db, "users", myUserUid)).then((doc) => {
+            if (doc.exists()) {
+              console.log("Document data:", doc.data());
+            } else {
+              console.log("No such document!");
+            }
+          }).catch((error) => {
+            console.log("Error getting document:", error);
+          });
+          
         }).catch((error) => {
           console.error("Error writing document: ", error);
         });
       })
       .catch((error) => {
         console.error("Error creating user: ", error);
-     })};
-
+      });
+    };
+    
 
 
 
@@ -182,26 +193,6 @@ const RegisterScreen = () => {
               type="clear"
               titleStyle={{ color: "#2089dc" }}
             />
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
      </SafeAreaView>
    </KeyboardAvoidingView>
 
