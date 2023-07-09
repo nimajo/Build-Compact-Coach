@@ -3,6 +3,7 @@ import { ScrollView, Button, TextInput, View, StyleSheet, Dimensions, Keyboard, 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LineChart } from 'react-native-chart-kit';
 import moment from 'moment';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const GraphScreen = () => {
   const [weight, setWeight] = useState('');
@@ -23,7 +24,21 @@ const GraphScreen = () => {
       console.log(e);
     }
   };
-
+  const storeTotalWeightLoss = async () => {
+    try {
+      if (weightEntries.length >= 2) {
+        let firstWeight = weightEntries[0].weight;
+        let lastWeight = weightEntries[weightEntries.length - 1].weight;
+        let totalWeightLoss = firstWeight - lastWeight;
+  
+        await AsyncStorage.setItem('totalWeightLoss', JSON.stringify(totalWeightLoss));
+      }
+    } catch (e) {
+      // Catch any writing errors
+      console.log(e);
+    }
+  };
+  
   const storeWeight = async () => {
     try {
       let newWeightEntry = { date: moment().format('LL'), weight: parseFloat(weight) };
@@ -32,6 +47,14 @@ const GraphScreen = () => {
       setWeightEntries(newWeightEntries);
       setWeight('');
       Keyboard.dismiss(); // This will dismiss the keyboard
+  
+      // Update total weight loss
+      if (newWeightEntries.length > 0) {
+        let totalWeightLoss = newWeightEntries[newWeightEntries.length - 1].weight - newWeightEntries[0].weight;
+        await AsyncStorage.setItem('totalWeightLoss', JSON.stringify(totalWeightLoss));
+      } else {
+        await AsyncStorage.setItem('totalWeightLoss', JSON.stringify(0));
+      }
     } catch (e) {
       // Catch any writing errors
       console.log(e);
@@ -44,11 +67,36 @@ const GraphScreen = () => {
       newWeightEntries.splice(index, 1);
       await AsyncStorage.setItem('weights', JSON.stringify(newWeightEntries));
       setWeightEntries(newWeightEntries);
+  
+      // Update total weight loss
+      if (newWeightEntries.length > 0) {
+        let totalWeightLoss = newWeightEntries[newWeightEntries.length - 1].weight - newWeightEntries[0].weight;
+        await AsyncStorage.setItem('totalWeightLoss', JSON.stringify(totalWeightLoss));
+      } else {
+        await AsyncStorage.setItem('totalWeightLoss', JSON.stringify(0));
+      }
     } catch (e) {
-      // Catch any writing errors
       console.log(e);
     }
   };
+  const [totalWeightLoss, setTotalWeightLoss] = useState(0);
+
+useEffect(() => {
+  getTotalWeightLoss();
+}, []);
+
+const getTotalWeightLoss = async () => {
+  try {
+    const storedWeightLoss = await AsyncStorage.getItem('totalWeightLoss');
+    if (storedWeightLoss !== null) {
+      setTotalWeightLoss(JSON.parse(storedWeightLoss));
+    }
+  } catch (e) {
+    // Catch any reading errors
+    console.log(e);
+  }
+};
+
   
   const chartData = {
     labels: weightEntries.map(entry => entry.date),
@@ -56,9 +104,11 @@ const GraphScreen = () => {
       data: weightEntries.map(entry => entry.weight),
     }]
   };
+  const [numEntries, setNumEntries] = useState(0);
 
   return (
     <View style={styles.container}>
+
       <TextInput
         style={styles.input}
         onChangeText={setWeight}
@@ -66,6 +116,7 @@ const GraphScreen = () => {
         keyboardType='numeric'
         placeholder='Enter your weight'
       />
+      
       <TouchableOpacity style={styles.button} onPress={storeWeight}>
         <Text style={styles.buttonText}>Submit Weight</Text>
       </TouchableOpacity>
@@ -97,7 +148,12 @@ const GraphScreen = () => {
           }}
         />
       )}
+
+
+      
     </View>
+
+
   );
 };
 
