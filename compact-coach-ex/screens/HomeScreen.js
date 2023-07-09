@@ -6,6 +6,7 @@ import { Button } from '@rneui/themed';
 import { signOut } from 'firebase/auth';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native';
+import {LineChart} from 'react-native-chart-kit';
 
 
 

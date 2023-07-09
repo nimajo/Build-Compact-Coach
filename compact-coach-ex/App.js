@@ -23,6 +23,7 @@ import HomeScreen from './screens/HomeScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import GraphScreen from './screens/GraphScreen';
+import ChatScreen from './screens/ChatScreen';
 
 
 const globalScreenOptions ={
@@ -61,6 +62,13 @@ function Dashboard() {
         <MaterialCommunityIcons name="account" color={color} size={26} />
       ),
       }}/>
+
+    <Tab.Screen name="Chat" component={ChatScreen} 
+    options={{
+    tabBarIcon: ({ color }) => (
+      <MaterialCommunityIcons name="wechat" color={color} size={26} />
+    ),
+    }}/>
 
     </Tab.Navigator>
   );

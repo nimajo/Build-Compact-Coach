@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native';
 
 
-const ProfileScreen = () => {
+const LeaderBoardScreen = () => {
   const user = auth.currentUser;
   const navigation = useNavigation();
   const [profileData, setProfileData] = useState(null);
@@ -52,7 +52,7 @@ const ProfileScreen = () => {
           
           >
           Name : {profileData.fname} {'\n'}
-          Current Weight: {profileData.weight} kg
+          Weight: {profileData.weight} kg
           </Text>
           )}
       </SafeAreaView>
@@ -85,4 +85,4 @@ const ProfileScreen = () => {
   );
 };
 
-export default ProfileScreen;
+export default LeaderBoardScreen;
