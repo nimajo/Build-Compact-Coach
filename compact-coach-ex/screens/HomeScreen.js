@@ -1,12 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Text, View, SafeAreaView } from 'react-native';
+import { Text, View, SafeAreaView , ScrollView} from 'react-native';
 import { auth , db } from '../firebase';
 import { collection, getDocs, doc, getDocFromCache, getDoc } from "firebase/firestore";
 import { Button } from '@rneui/themed';
-import { signOut } from 'firebase/auth';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import { LineChart } from 'react-native-chart-kit';
-import TotalWeightLossMessage from './TotalWeightLossMessage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomeScreen = () => {
@@ -51,6 +48,8 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView>
+      <ScrollView>
+
       <View>
         <View>
           {profileData && (
@@ -81,6 +80,7 @@ const HomeScreen = () => {
           }
         </View>
       </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
