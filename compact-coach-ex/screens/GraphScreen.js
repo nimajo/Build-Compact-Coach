@@ -109,6 +109,7 @@ const getTotalWeightLoss = async () => {
   return (
     <View style={styles.container}>
 
+      {/* Enter Weight Input */}
       <TextInput
         style={styles.input}
         onChangeText={setWeight}
@@ -117,9 +118,16 @@ const getTotalWeightLoss = async () => {
         placeholder='Enter your weight'
       />
       
+      {/* Submit Weight Button */}
       <TouchableOpacity style={styles.button} onPress={storeWeight}>
-        <Text style={styles.buttonText}>Submit Weight</Text>
+        <Text style={styles.buttonText}
+        accessibilityLabel="Type your message and use this button to submit">
+          Submit Weight
+          </Text>
       </TouchableOpacity>
+
+      
+{/* buttons with weight, press to remove */}
       <ScrollView>
         {weightEntries.map((entry, index) => (
           <TouchableOpacity key={index} onPress={() => removeWeight(index)}>
@@ -127,16 +135,18 @@ const getTotalWeightLoss = async () => {
           </TouchableOpacity>
         ))}
       </ScrollView>
+
+{/* LineGraph */}
       {weightEntries.length > 0 && (
         <LineChart
           data={chartData}
-          width={Dimensions.get('window').width - 16}
+          width={Dimensions.get('window').width - 16} //Uses device width and height
           height={Dimensions.get('window').height - 300}
           chartConfig={{
             backgroundGradientFrom: '#1E2923',
             backgroundGradientTo: '#08130D',
-            decimalPlaces: 2, // optional, defaults to 2dp
-            color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+            decimalPlaces: 2, 
+            color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`, //Uses different shades of green
             style: {
               borderRadius: 16
             }
@@ -170,10 +180,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     width: '100%',
     marginBottom: 10,
-    color: '#Ffffff', // Changed the text color to white for better visibility on the dark background
+    color: '#Ffffff', // Meant to be white
     backgroundColor: '#08130D', // Same as the lighter color of the graph
-    borderRadius: 8, // Optional, added some rounding to the text input
-    paddingHorizontal: 10, // Optional, added some padding to the text input
+    borderRadius: 8, // rounded button
+    paddingHorizontal: 10, // added some padding to the text input
   },
   button: {
     backgroundColor: '#08130D',

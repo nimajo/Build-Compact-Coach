@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { auth , db } from '../firebase';
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { signOut } from 'firebase/auth';
+
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView } from 'react-native';
@@ -81,16 +81,17 @@ const ProfileScreen = () => {
 
   // Sign out function
   const signOutUser = () => {
-    signOut(auth).then(() => {
+    auth.signOut().then(() => {
       navigation.replace("Login");
     }).catch(err => {
       console.log(err);
     })
-  }
+}
 
-  const goToGraphScreen = () => {
-    navigation.navigate('GraphScreen');
-  }
+//Commented Out Graph Redirector , Obselete
+//const goToGraphScreen = () => {
+// navigation.navigate('GraphScreen');
+//} 
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -113,23 +114,26 @@ const ProfileScreen = () => {
           )}
       </View>
 
-       {/** Update Weight Redirect Button */}       
-      <Button
-      title="Update Weight"
-      onPress={() => navigation.navigate('Dashboard', { screen: 'Graph' })} 
-      buttonStyle={{
-        alignItems:"center",
-        backgroundColor: '#1E2923',
-        borderWidth: 2,
-        borderColor: 'white',
-        borderRadius: 30,
-        }}
-        containerStyle={{
-        width: 150,
-        marginHorizontal: 130,
-        marginVertical: 60,
-        }}
-        titleStyle={{ fontWeight: 'bold' }}/>
+{/* //Commented Out Graph Redirector , Obselete */}
+{/** Update Weight Redirect Button        
+<Button
+title="Update Weight"
+onPress={() => navigation.navigate('Dashboard', { screen: 'Graph' })} 
+buttonStyle={{
+alignItems:"center",
+backgroundColor: '#1E2923',
+borderWidth: 2,
+borderColor: 'white',
+borderRadius: 30,
+}}
+containerStyle={{
+width: 150,
+marginHorizontal: 130,
+marginVertical: 60,
+}}
+titleStyle={{ fontWeight: 'bold' }}/>*/}
+
+
 
 <View style={{flex: 1}}>
 <Text
@@ -144,7 +148,7 @@ const ProfileScreen = () => {
 
 
 <View style={styles.achievementsContainer}>
-  {/* You can put the achievement badges here */}
+  {/*  achievement badges here */}
 </View>
 
       {/** SignOut Button */}
@@ -154,7 +158,9 @@ const ProfileScreen = () => {
           onPress={signOutUser}
           buttonStyle={{
           alignItems:"center",
-          backgroundColor: '#E9663B',
+          backgroundColor: "#2F14B8",
+          
+          accessibilityLabel:"Type your message and use this button to submit",
           borderWidth: 2,
           borderColor: 'white',
           borderRadius: 15,
