@@ -24,6 +24,7 @@ import RegisterScreen from './screens/RegisterScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import GraphScreen from './screens/GraphScreen';
 import ChatScreen from './screens/ChatScreen';
+import WorkoutScreen from './screens/WorkoutScreen';
 
 
 const globalScreenOptions ={
@@ -89,6 +90,7 @@ function App() {
       <Stack.Screen name="Login" component={LoginScreen} options={{headerShown:false}}/>
       <Stack.Screen name="Register" component={RegisterScreen} options={{headerShown:false}}/>
       <Stack.Screen name="Home" component={Dashboard} options={{headerShown:false}}/>
+      <Stack.Screen name="Workout" component={WorkoutScreen} options={{headerShown:false}}/>
         
         
         

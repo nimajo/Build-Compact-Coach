@@ -3,7 +3,7 @@ import { ScrollView, Button, TextInput, View, StyleSheet, Dimensions, Keyboard, 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LineChart } from 'react-native-chart-kit';
 import moment from 'moment';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native';
 
 const GraphScreen = () => {
   const [weight, setWeight] = useState('');
@@ -41,19 +41,23 @@ const GraphScreen = () => {
   
   const storeWeight = async () => {
     try {
-      let newWeightEntry = { date: moment().format('LL'), weight: parseFloat(weight) };
-      let newWeightEntries = [...weightEntries, newWeightEntry];
-      await AsyncStorage.setItem('weights', JSON.stringify(newWeightEntries));
-      setWeightEntries(newWeightEntries);
-      setWeight('');
-      Keyboard.dismiss(); // This will dismiss the keyboard
-  
-      // Update total weight loss
-      if (newWeightEntries.length > 0) {
-        let totalWeightLoss = newWeightEntries[newWeightEntries.length - 1].weight - newWeightEntries[0].weight;
-        await AsyncStorage.setItem('totalWeightLoss', JSON.stringify(totalWeightLoss));
+      if (weight && !isNaN(weight)) {  // Validation to check if weight is not null and is a number
+        let newWeightEntry = { date: moment().format('LL'), weight: parseFloat(weight) };
+        let newWeightEntries = [...weightEntries, newWeightEntry];
+        await AsyncStorage.setItem('weights', JSON.stringify(newWeightEntries));
+        setWeightEntries(newWeightEntries);
+        setWeight('');
+        Keyboard.dismiss(); // This will dismiss the keyboard
+
+        // Update total weight loss
+        if (newWeightEntries.length > 0) {
+          let totalWeightLoss = newWeightEntries[newWeightEntries.length - 1].weight - newWeightEntries[0].weight;
+          await AsyncStorage.setItem('totalWeightLoss', JSON.stringify(totalWeightLoss));
+        } else {
+          await AsyncStorage.setItem('totalWeightLoss', JSON.stringify(0));
+        }
       } else {
-        await AsyncStorage.setItem('totalWeightLoss', JSON.stringify(0));
+        alert('Please input a valid weight');
       }
     } catch (e) {
       // Catch any writing errors
@@ -101,42 +105,45 @@ const getTotalWeightLoss = async () => {
   const chartData = {
     labels: weightEntries.map(entry => entry.date),
     datasets: [{
-      data: weightEntries.map(entry => entry.weight),
+      data: weightEntries.map(entry => entry.weight || 0), // provide a default of 0 for null values
     }]
   };
   const [numEntries, setNumEntries] = useState(0);
 
   return (
-    <View style={styles.container}>
-
-      {/* Enter Weight Input */}
-      <TextInput
-        style={styles.input}
-        onChangeText={setWeight}
-        value={weight}
-        keyboardType='numeric'
-        placeholder='Enter your weight'
-      />
+    <SafeAreaView style={styles.container}>
       
-      {/* Submit Weight Button */}
-      <TouchableOpacity style={styles.button} onPress={storeWeight}>
-        <Text style={styles.buttonText}
-        accessibilityLabel="Type your message and use this button to submit">
-          Submit Weight
-          </Text>
-      </TouchableOpacity>
-
+            {/* Enter Weight Input */}
+            <TextInput
+              style={styles.input}
+              onChangeText={setWeight}
+              value={weight}
+              keyboardType='numeric'
+              placeholder='Enter your weight'
+              placeholderTextColor='white'
+              accessibilityLabel="Enter Your Weight Here"
+            />
+            
+            {/* Submit Weight Button */}
+            <TouchableOpacity style={styles.button} onPress={storeWeight}>
+              <Text style={styles.buttonText}
+              accessibilityLabel="Type your message and use this button to submit">
+                Submit Weight
+                </Text>
+            </TouchableOpacity>
       
+            
+
 {/* buttons with weight, press to remove */}
       <ScrollView>
         {weightEntries.map((entry, index) => (
-          <TouchableOpacity key={index} onPress={() => removeWeight(index)}>
+          <TouchableOpacity key={index} onPress={() => removeWeight(index)} accessibilityLabel="Tap to Remove Entries"> 
             <Text style={styles.entryText}>{`Date: ${entry.date}, Weight: ${entry.weight}`}</Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
-
-{/* LineGraph */}
+      
+      {/* LineGraph */}
       {weightEntries.length > 0 && (
         <LineChart
           data={chartData}
@@ -159,9 +166,11 @@ const getTotalWeightLoss = async () => {
         />
       )}
 
-
       
-    </View>
+    
+            
+    </SafeAreaView>
+
 
 
   );
@@ -170,7 +179,7 @@ const getTotalWeightLoss = async () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 35,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#1E2923', // This is the background color of the graph
@@ -180,13 +189,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     width: '100%',
     marginBottom: 10,
-    color: '#Ffffff', // Meant to be white
+     // Meant to be white
     backgroundColor: '#08130D', // Same as the lighter color of the graph
     borderRadius: 8, // rounded button
     paddingHorizontal: 10, // added some padding to the text input
+    color:"white"
   },
   button: {
-    backgroundColor: '#08130D',
+    backgroundColor: '#2F14B8',
     padding: 10,
     borderRadius: 8,
     width: '100%',
@@ -196,9 +206,14 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#Ffffff',
   },
+  entryButton: {
+    borderRadius: 8,
+    margin: -30,
+    padding: 2,
+  },
   entryText: {
     color: '#Ffffff',
-    backgroundColor: '#08130D',
+    backgroundColor: '#2F14B8',
     padding: 10,
     borderRadius: 8,
     marginVertical: 5,

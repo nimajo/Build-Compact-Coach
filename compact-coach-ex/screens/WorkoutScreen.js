@@ -1,0 +1,65 @@
+import { StyleSheet, Text, View, SafeAreaView, Image, Pressable, ScrollView } from "react-native";
+import React from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { Ionicons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
+
+const WorkoutScreen = () => {
+  const route = useRoute();
+  console.log(route.params);
+  const navigation = useNavigation();
+
+  return (
+    <ScrollView  showsVerticalScrollIndicator={false} style={styles.container}>
+      <Image style={styles.ImageStyle} source={{ uri: route.params.image }} />
+      <Ionicons style={styles.backIcon} name="arrow-back" size={28} color="black" 
+      onPress={()=> navigation.goBack()}
+      accessibilityLabel="Tap to Return to Home"/>
+
+
+    {route.params.exercises.map((item,index) => (
+        <Pressable style={styles.ExercisePressable} key={index}>
+            <Image style={styles.exerciseImage} source={{uri:item.image}}/>
+            <View style={{marginLeft:10}}>
+                <Text style={{fontSize: 17, fontWeight: "bold",width:170,}}>{item.name}</Text>
+                <Text style={{marginTop: 4, fontSize: 18, color: "gray",}}>{item.sets} Sets</Text>
+            </View>
+            
+        </Pressable>
+        ))}
+
+    
+
+
+
+    </ScrollView>
+  );
+};
+
+export default WorkoutScreen;
+
+const styles = StyleSheet.create({
+  ImageStyle: {
+    width: "100%",
+    height: 170,
+  },
+  container: {
+    backgroundColor: "white",
+    marginTop: 30,
+  },
+  backIcon: {
+    position: "absolute",
+    top: 20,
+    left: 20,
+  },
+  exerciseImage:{
+    width:90,
+    height:90
+  },
+  ExercisePressable:{
+    margin:10,
+    flexDirection:'row',
+    alignContent:"center",
+    
+  },
+});
