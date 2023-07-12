@@ -175,12 +175,7 @@ titleStyle={{ fontWeight: 'bold' }}/>*/}
 </View>
 
 
-
-
-
       </ScrollView>
-
-
     </SafeAreaView>
   );
 };
