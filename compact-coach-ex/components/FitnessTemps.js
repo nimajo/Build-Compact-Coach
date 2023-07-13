@@ -1,46 +1,52 @@
-import { Pressable, StyleSheet, Text, View, Image, ScrollView } from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ScrollView,
+} from "react-native";
 import React from "react";
 import fitness from "../data/fitness";
 import { useNavigation } from "@react-navigation/native";
- const FitnessTemps = () => {
-
-
+const FitnessTemps = () => {
   // Assign the fitness data to a variable for better readability
   const FitnessData = fitness;
   const navigation = useNavigation();
-   return (
- 
+  return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
       {/* Map through the fitness data and render each item */}
       {FitnessData.map((item, key) => (
-        <Pressable style={styles.PressStyle} key={key}
-        onPress={()=> navigation.navigate("Workout",{
-        image:item.image,
-        exercises:item.excersises,
-        id:item.id,
-        })}>
+        <Pressable
+          style={styles.PressStyle}
+          key={key}
+          onPress={() =>
+            navigation.navigate("Workout", {
+              image: item.image,
+              exercises: item.excersises,
+              id: item.id,
+            })
+          }
+        >
           <Image style={styles.PressImage} source={{ uri: item.image }} />
           <Text style={styles.PressText}>{item.name}</Text>
         </Pressable>
       ))}
     </ScrollView>
-    
-
-
   );
 };
- export default FitnessTemps;
- const styles = StyleSheet.create({
-    container:{
-        backgroundColor:"white",
-        marginTop:50,
-    },
+export default FitnessTemps;
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "white",
+    marginTop: 50,
+  },
   PressStyle: {
     alignItems: "center",
     justifyContent: "center",
     margin: 10,
     paddingTop: 10,
-    borderRadius:20,
+    borderRadius: 20,
   },
   PressImage: {
     width: "100%",

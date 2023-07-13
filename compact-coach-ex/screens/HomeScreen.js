@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Text, View, SafeAreaView, ScrollView } from "react-native";
+import { Text, View, SafeAreaView, ScrollView, Alert } from "react-native";
 import { auth, db } from "../firebase";
 import {
   collection,
@@ -197,6 +197,7 @@ const HomeScreen = () => {
               size={30}
               color="black"
               style={{ position: "absolute", top: 40, right: 10 }}
+              onPress={() => {Alert.alert('You have walked _ steps today!')}}
             />
           </View>
 
@@ -212,6 +213,7 @@ const HomeScreen = () => {
               size={30}
               color="black"
               style={{ position: "absolute", top: 40, right: 10 }}
+              onPress={() => {Alert.alert('You had a heartrate of _ today')}}
             />
           </View>
         </View>

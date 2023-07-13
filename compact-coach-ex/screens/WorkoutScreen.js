@@ -31,6 +31,7 @@ const WorkoutScreen = () => {
           onPress={() => navigation.goBack()}
           accessibilityLabel="Tap to Return to Home"
         />
+        <Text style={styles.ExerciseList}>Exercise List</Text>
 
         {route.params.exercises.map((item, index) => (
           <Pressable style={styles.ExercisePressable} key={index}>
@@ -47,14 +48,18 @@ const WorkoutScreen = () => {
         ))}
       </ScrollView>
 
-      <TouchableOpacity
-        style={styles.startButton}
-        onPress={() =>
-          navigation.navigate("Exercise", { screen: "ExerciseScreen" })
-        }
-      >
-        <Text style={styles.startText}>START SESSION</Text>
-      </TouchableOpacity>
+      <View className="bg-white">
+        <TouchableOpacity
+          style={styles.startButton}
+          onPress={() =>
+            navigation.navigate("Exercise", {
+              exercises: route.params.exercises,
+            })
+          }
+        >
+          <Text style={styles.startText}>START SESSION</Text>
+        </TouchableOpacity>
+      </View>
     </>
   );
 };
@@ -97,5 +102,11 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     padding: 10,
     borderRadius: 15,
+  },
+  ExerciseList: {
+    paddingLeft: 10,
+    paddingTop: 20,
+    fontWeight: 600,
+    fontSize: 15,
   },
 });

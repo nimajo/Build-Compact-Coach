@@ -1,12 +1,21 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Text, View, SafeAreaView , ScrollView, StyleSheet } from 'react-native';
-import { auth , db } from '../firebase';
-import { collection, getDocs, doc, getDocFromCache, getDoc, query, where } from "firebase/firestore";
-import { Button } from '@rneui/themed';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import fitness from '../data/fitness';
-import { Picker } from '@react-native-picker/picker';
+// Obselete Right Now, Used Fitness,js instead
+import React, { useState, useEffect, useCallback } from "react";
+import { Text, View, SafeAreaView, ScrollView, StyleSheet } from "react-native";
+import { auth, db } from "../firebase";
+import {
+  collection,
+  getDocs,
+  doc,
+  getDocFromCache,
+  getDoc,
+  query,
+  where,
+} from "firebase/firestore";
+import { Button } from "@rneui/themed";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import fitness from "../data/fitness";
+import { Picker } from "@react-native-picker/picker";
 
 // Custom hook to get profile data from Firestore
 function useProfileData(user) {
@@ -43,7 +52,7 @@ function useTotalWeightLoss() {
   useEffect(() => {
     const getTotalWeightLoss = async () => {
       try {
-        const storedWeightLoss = await AsyncStorage.getItem('totalWeightLoss');
+        const storedWeightLoss = await AsyncStorage.getItem("totalWeightLoss");
         if (storedWeightLoss !== null) {
           setTotalWeightLoss(JSON.parse(storedWeightLoss));
         }
@@ -82,7 +91,10 @@ function useWorkoutData(user) {
             const data = doc.data();
 
             // Check if the workout was done today
-            if (new Date(data.timestamp.toDate()).toDateString() === new Date().toDateString()) {
+            if (
+              new Date(data.timestamp.toDate()).toDateString() ===
+              new Date().toDateString()
+            ) {
               workouts += 1;
               minutes += data.duration;
               calories += data.caloriesBurnt;
@@ -115,11 +127,11 @@ function useWorkoutSession() {
   const startWorkout = (custom = false) => {
     setIsWorkoutOngoing(true);
     if (custom) {
-      setCurrentWorkout({exercises: customWorkout});
+      setCurrentWorkout({ exercises: customWorkout });
     }
 
     setInterval(() => {
-      setWorkoutDuration(prevDuration => prevDuration + 1);
+      setWorkoutDuration((prevDuration) => prevDuration + 1);
     }, 1000);
   };
 
@@ -130,14 +142,14 @@ function useWorkoutSession() {
     setCurrentWorkout(null);
   };
 
-  return { 
-    currentWorkout, 
-    customWorkout, 
-    isWorkoutOngoing, 
-    workoutDuration, 
-    setCurrentWorkout, 
-    setCustomWorkout, 
-    startWorkout, 
-    endWorkout 
+  return {
+    currentWorkout,
+    customWorkout,
+    isWorkoutOngoing,
+    workoutDuration,
+    setCurrentWorkout,
+    setCustomWorkout,
+    startWorkout,
+    endWorkout,
   };
 }
