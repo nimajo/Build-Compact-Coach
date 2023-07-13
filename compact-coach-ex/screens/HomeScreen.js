@@ -197,7 +197,9 @@ const HomeScreen = () => {
               size={30}
               color="black"
               style={{ position: "absolute", top: 40, right: 10 }}
-              onPress={() => {Alert.alert('You have walked _ steps today!')}}
+              onPress={() => {
+                Alert.alert("You have walked _ steps today!");
+              }}
             />
           </View>
 
@@ -213,7 +215,9 @@ const HomeScreen = () => {
               size={30}
               color="black"
               style={{ position: "absolute", top: 40, right: 10 }}
-              onPress={() => {Alert.alert('You had a heartrate of _ today')}}
+              onPress={() => {
+                Alert.alert("You had a heartrate of _ today");
+              }}
             />
           </View>
         </View>
@@ -261,7 +265,6 @@ const styles = StyleSheet.create({
   box1: {
     paddingHorizontal: 50,
     paddingVertical: 50,
-
     backgroundColor: "#f0763c", // color of box : light grey color
     margin: 0, // space from the screen edges
     padding: 50, // space from the box edges to the content
@@ -270,7 +273,6 @@ const styles = StyleSheet.create({
   box2: {
     paddingHorizontal: 50,
     paddingVertical: 50,
-
     backgroundColor: "#f0763c", // color of box : light grey color
     margin: 0, // space from the screen edges
     padding: 50, // space from the box edges to the content

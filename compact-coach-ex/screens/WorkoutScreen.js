@@ -21,7 +21,7 @@ const WorkoutScreen = () => {
 
   return (
     <>
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
+      <ScrollView  style={styles.container}>
         <Image style={styles.ImageStyle} source={{ uri: route.params.image }} />
         <Ionicons
           style={styles.backIcon}
@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
     marginTop: 30,
+    flex:1,
   },
   backIcon: {
     position: "absolute",
