@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View, Image } from "react-native";
+import { Pressable, StyleSheet, Text, View, Image, ScrollView } from "react-native";
 import React from "react";
 import fitness from "../data/fitness";
 import { useNavigation } from "@react-navigation/native";
@@ -9,7 +9,8 @@ import { useNavigation } from "@react-navigation/native";
   const FitnessData = fitness;
   const navigation = useNavigation();
    return (
-    <View>
+ 
+    <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
       {/* Map through the fitness data and render each item */}
       {FitnessData.map((item, key) => (
         <Pressable style={styles.PressStyle} key={key}
@@ -22,11 +23,18 @@ import { useNavigation } from "@react-navigation/native";
           <Text style={styles.PressText}>{item.name}</Text>
         </Pressable>
       ))}
-    </View>
+    </ScrollView>
+    
+
+
   );
 };
  export default FitnessTemps;
  const styles = StyleSheet.create({
+    container:{
+        backgroundColor:"white",
+        marginTop:50,
+    },
   PressStyle: {
     alignItems: "center",
     justifyContent: "center",

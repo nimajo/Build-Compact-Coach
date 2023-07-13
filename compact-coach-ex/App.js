@@ -25,6 +25,7 @@ import ProfileScreen from './screens/ProfileScreen';
 import GraphScreen from './screens/GraphScreen';
 import ChatScreen from './screens/ChatScreen';
 import WorkoutScreen from './screens/WorkoutScreen';
+import ExerciseScreen from './screens/ExerciseScreen';
 
 
 const globalScreenOptions ={
@@ -91,6 +92,7 @@ function App() {
       <Stack.Screen name="Register" component={RegisterScreen} options={{headerShown:false}}/>
       <Stack.Screen name="Home" component={Dashboard} options={{headerShown:false}}/>
       <Stack.Screen name="Workout" component={WorkoutScreen} options={{headerShown:false}}/>
+      <Stack.Screen name="Exercise" component={ExerciseScreen} options={{headerShown:false}}/>
         
         
         

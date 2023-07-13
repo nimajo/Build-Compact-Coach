@@ -218,7 +218,7 @@ const HomeScreen = () => {
 
         {/* Fitness Templates */}
 
-        <FitnessTemps accessibilityLabel="Tap me to Begin Working Out!"/>
+        <FitnessTemps accessibilityLabel="Tap me to Begin Working Out!" />
       </ScrollView>
     </SafeAreaView>
   );
@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
   // All the styles
   container: {
     flex: 1,
-    backgroundColor:"white"
+    backgroundColor: "white",
   },
 
   topbar: {

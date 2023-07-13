@@ -1,3 +1,4 @@
+// This DATA File contains the Exercise Templates, Exercises with Demonstrations, aswell as Sets
 export default [
   {
     id: "0",
