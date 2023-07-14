@@ -15,6 +15,8 @@ import { StyleSheet } from "react-native";
 import FitnessTemps from "../components/FitnessTemps";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { WorkoutItems } from "../Context";
+import GoogleFit, { Scopes } from 'react-native-google-fit';
+
 
 const HomeScreen = () => {
   const { workout, minutes, calories, sessions, setSessions } =
@@ -23,6 +25,43 @@ const HomeScreen = () => {
   const navigation = useNavigation();
   const [profileData, setProfileData] = useState(null);
   const [totalWeightLoss, setTotalWeightLoss] = useState(0);
+  const [steps, setSteps] = useState(0);
+  useEffect(() => {
+    const options = {
+      scopes: [
+        Scopes.FITNESS_ACTIVITY_READ,
+        Scopes.FITNESS_ACTIVITY_WRITE,
+        Scopes.FITNESS_BODY_READ,
+        Scopes.FITNESS_BODY_WRITE,
+      ],
+    };
+  
+    GoogleFit.authorize(options)
+      .then((authResult) => {
+        if (authResult.success) {
+          GoogleFit.getDailyStepCountSamples({
+            startDate: new Date().toISOString(),
+            endDate: new Date().toISOString(),
+          })
+            .then((res) => {
+              let totalSteps = 0;
+              res.forEach((dataset) => {
+                dataset.steps.forEach((step) => {
+                  totalSteps += step.value;
+                });
+              });
+              setSteps(totalSteps);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+      })
+      .catch(() => {
+        console.log('authorization failed');
+      });
+  }, []);
+
 
   const fetchData = async () => {
     try {
@@ -157,13 +196,17 @@ const HomeScreen = () => {
             >
               Steps
             </Text>
+            <Text style={{position:'absolute',top:35,left:40}}
+            className="text-2xl font-extrabold">
+              {steps}
+            </Text>
             <MaterialCommunityIcons
               name="shoe-print"
               size={30}
               color="black"
               style={{ position: "absolute", top: 40, right: 10 }}
               onPress={() => {
-                Alert.alert("You have walked This Steps today!");
+                Alert.alert(`You have walked ${steps} steps today!`);
               }}
             />
           </View>
