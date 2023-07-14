@@ -17,13 +17,8 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { WorkoutItems } from "../Context";
 
 const HomeScreen = () => {
-  const {
-    workout,
-    minutes,
-    calories,
-    sessions,
-    setSessions,
-  } = useContext(WorkoutItems);
+  const { workout, minutes, calories, sessions, setSessions } =
+    useContext(WorkoutItems);
   const user = auth.currentUser;
   const navigation = useNavigation();
   const [profileData, setProfileData] = useState(null);
@@ -93,7 +88,8 @@ const HomeScreen = () => {
                 marginLeft: 10,
               }}
             >
-              Well Done! You've Lost {-totalWeightLoss} kg Since Joining
+              Well Done! You've Lost {-totalWeightLoss.toFixed(1)} kg Since
+              Joining
             </Text>
           )}
           {totalWeightLoss > 0 && (
@@ -104,7 +100,7 @@ const HomeScreen = () => {
                 marginLeft: 10,
               }}
             >
-              You've Gained {+totalWeightLoss} kg
+              You've Gained {+totalWeightLoss.toFixed(1)} kg
             </Text>
           )}
         </View>
@@ -138,7 +134,7 @@ const HomeScreen = () => {
             </Text>
             <Text className="flex-row  text-xl leading-relaxed font-small font-medium ">
               {" "}
-              {minutes}
+              {minutes.toFixed(1)}
             </Text>
           </View>
 
@@ -148,7 +144,7 @@ const HomeScreen = () => {
             </Text>
             <Text className="flex-row  text-xl leading-relaxed font-small font-medium ">
               {" "}
-              {calories}
+              {calories.toFixed(1)}
             </Text>
           </View>
         </View>
