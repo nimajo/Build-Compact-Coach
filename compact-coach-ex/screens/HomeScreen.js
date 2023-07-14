@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import { Text, View, SafeAreaView, ScrollView, Alert } from "react-native";
 import { auth, db } from "../firebase";
 import {
@@ -14,8 +14,16 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StyleSheet } from "react-native";
 import FitnessTemps from "../components/FitnessTemps";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { WorkoutItems } from "../Context";
 
 const HomeScreen = () => {
+  const {
+    workout,
+    minutes,
+    calories,
+    sessions,
+    setSessions,
+  } = useContext(WorkoutItems);
   const user = auth.currentUser;
   const navigation = useNavigation();
   const [profileData, setProfileData] = useState(null);
@@ -55,51 +63,12 @@ const HomeScreen = () => {
     }, [])
   );
 
-  // IMPLEMENTATION OF WORKOUT SESSIONS AND FEATURES
-  //new states
-  const [totalWorkouts, setTotalWorkouts] = useState(0);
-  const [totalMinutes, setTotalMinutes] = useState(0);
-  const [totalCalories, setTotalCalories] = useState(0);
-
-  //function to fetch data from firestore
-  const fetchWorkoutData = async () => {
-    try {
-      const workoutCollection = collection(db, "workouts");
-      const workoutSnapshot = await getDocs(workoutCollection);
-      let workouts = 0;
-      let minutes = 0;
-      let calories = 0;
-
-      // Loop over the documents in the collection
-      workoutSnapshot.forEach((doc) => {
-        const data = doc.data();
-
-        // Check if the workout was done today
-        if (
-          data.user === user.uid &&
-          new Date(data.timestamp.toDate()).toDateString() ===
-            new Date().toDateString()
-        ) {
-          workouts += 1;
-          minutes += data.duration;
-          calories += data.caloriesBurnt;
-        }
-      });
-
-      setTotalWorkouts(workouts);
-      setTotalMinutes(minutes);
-      setTotalCalories(calories);
-    } catch (error) {
-      console.log("Error getting workout data: ", error);
-    }
-  };
-
   //checks workout data everytime homescreen is in focus
   useFocusEffect(
     useCallback(() => {
       fetchData();
       getTotalWeightLoss();
-      fetchWorkoutData();
+      //workout data goes here
     }, [])
   );
 
@@ -158,7 +127,7 @@ const HomeScreen = () => {
             </Text>
             <Text className="flex-row  text-xl leading-relaxed font-small font-medium ">
               {" "}
-              {totalWorkouts}
+              {workout}
             </Text>
           </View>
 
@@ -169,7 +138,7 @@ const HomeScreen = () => {
             </Text>
             <Text className="flex-row  text-xl leading-relaxed font-small font-medium ">
               {" "}
-              {totalMinutes}
+              {minutes}
             </Text>
           </View>
 
@@ -179,7 +148,7 @@ const HomeScreen = () => {
             </Text>
             <Text className="flex-row  text-xl leading-relaxed font-small font-medium ">
               {" "}
-              {totalCalories}
+              {calories}
             </Text>
           </View>
         </View>
@@ -198,7 +167,7 @@ const HomeScreen = () => {
               color="black"
               style={{ position: "absolute", top: 40, right: 10 }}
               onPress={() => {
-                Alert.alert("You have walked _ steps today!");
+                Alert.alert("You have walked This Steps today!");
               }}
             />
           </View>
@@ -206,9 +175,9 @@ const HomeScreen = () => {
           <View style={styles.box2}>
             <Text
               className="font-semibold leading-relaxed text-lg"
-              style={{ position: "absolute", top: 6, right: 10 }}
+              style={{ position: "absolute", top: 6, right: 6 }}
             >
-              Heartrate
+              Heart Rate
             </Text>
             <MaterialCommunityIcons
               name="heart-pulse"
@@ -216,7 +185,7 @@ const HomeScreen = () => {
               color="black"
               style={{ position: "absolute", top: 40, right: 10 }}
               onPress={() => {
-                Alert.alert("You had a heartrate of _ today");
+                Alert.alert("You had a Heart Rate of This today");
               }}
             />
           </View>
@@ -231,25 +200,24 @@ const HomeScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  // All the styles
   container: {
     flex: 1,
     backgroundColor: "white",
   },
 
   topbar: {
-    flexDirection: "row", //direction of items
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 16,
     paddingTop: 6,
-    backgroundColor: "#f0763c", // color of box : light grey color
+    backgroundColor: "#f0763c",
     margin: 15, // space from the screen edges
     padding: 15, // space from the box edges to the content
-    borderRadius: 15, // rounded corners
+    borderRadius: 15,
   },
   boxes: {
-    flexDirection: "row", //direction of items
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 25,
@@ -257,26 +225,25 @@ const styles = StyleSheet.create({
 
     paddingBottom: 0,
     paddingTop: 0,
-    //backgroundColor: '#f0763c', // color of box : light grey color
     margin: 15, // space from the screen edges
     padding: 75, // space from the box edges to the content
-    borderRadius: 0, // rounded corners
+    borderRadius: 0,
   },
   box1: {
     paddingHorizontal: 50,
     paddingVertical: 50,
-    backgroundColor: "#f0763c", // color of box : light grey color
+    backgroundColor: "#f0763c",
     margin: 0, // space from the screen edges
     padding: 50, // space from the box edges to the content
-    borderRadius: 15, // rounded corners
+    borderRadius: 15,
   },
   box2: {
     paddingHorizontal: 50,
     paddingVertical: 50,
-    backgroundColor: "#f0763c", // color of box : light grey color
+    backgroundColor: "#f0763c",
     margin: 0, // space from the screen edges
     padding: 50, // space from the box edges to the content
-    borderRadius: 15, // rounded corners
+    borderRadius: 15,
   },
 });
 export default HomeScreen;

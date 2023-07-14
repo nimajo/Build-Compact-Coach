@@ -29,9 +29,9 @@ const GraphScreen = () => {
       if (storedWeights !== null) {
         setWeightEntries(JSON.parse(storedWeights));
       }
-    } catch (e) {
+    } catch (error) {
       // Catch any reading errors
-      console.log(e);
+      console.log(error);
     }
   };
   const storeTotalWeightLoss = async () => {
@@ -46,9 +46,9 @@ const GraphScreen = () => {
           JSON.stringify(totalWeightLoss)
         );
       }
-    } catch (e) {
+    } catch (error) {
       // Catch any writing errors
-      console.log(e);
+      console.log(error);
     }
   };
 
@@ -81,9 +81,9 @@ const GraphScreen = () => {
       } else {
         alert("Please input a valid weight");
       }
-    } catch (e) {
+    } catch (error) {
       // Catch any writing errors
-      console.log(e);
+      console.log(error);
     }
   };
 
@@ -106,8 +106,8 @@ const GraphScreen = () => {
       } else {
         await AsyncStorage.setItem("totalWeightLoss", JSON.stringify(0));
       }
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.log(error);
     }
   };
   const [totalWeightLoss, setTotalWeightLoss] = useState(0);
@@ -122,9 +122,9 @@ const GraphScreen = () => {
       if (storedWeightLoss !== null) {
         setTotalWeightLoss(JSON.parse(storedWeightLoss));
       }
-    } catch (e) {
+    } catch (error) {
       // Catch any reading errors
-      console.log(e);
+      console.log(error);
     }
   };
 

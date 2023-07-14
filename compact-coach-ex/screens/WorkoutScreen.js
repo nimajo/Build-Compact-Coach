@@ -6,19 +6,24 @@ import {
   Image,
   Pressable,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, {useContext} from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
-import { TouchableOpacity } from "react-native";
 import ExerciseScreen from "./ExerciseScreen";
+import { WorkoutItems } from "../Context";
+import { Entypo } from '@expo/vector-icons';
+
 
 const WorkoutScreen = () => {
   const route = useRoute();
   console.log(route.params);
   const navigation = useNavigation();
-
+  const {
+    completed,
+    setCompleted,
+  } = useContext(WorkoutItems);
   return (
     <>
       <ScrollView  style={styles.container}>
@@ -44,6 +49,11 @@ const WorkoutScreen = () => {
                 {item.sets} Sets
               </Text>
             </View>
+            {completed.includes(item.name) ? (
+              <Ionicons name="checkmark-done-circle" size={24} color="green" />
+            ) : (
+              <Entypo name="circle-with-cross" size={24} color="grey" />
+            )}
           </Pressable>
         ))}
       </ScrollView>
@@ -51,11 +61,12 @@ const WorkoutScreen = () => {
       <View className="bg-white">
         <TouchableOpacity
           style={styles.startButton}
-          onPress={() =>
+          onPress={() => {
             navigation.navigate("Exercise", {
               exercises: route.params.exercises,
             })
-          }
+            setCompleted([]);
+          }}
         >
           <Text style={styles.startText}>START SESSION</Text>
         </TouchableOpacity>

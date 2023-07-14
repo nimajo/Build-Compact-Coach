@@ -4,49 +4,49 @@ export default [
     id: "0",
     image: "https://hips.hearstapps.com/hmg-prod/images/pushup-1462808858.gif",
     name: "FULL BODY | BODY WEIGHT",
-    description: "7x4 CHALLENGE",
+    description: "Full Body Session, 6 Exercises",
     excersises: [
       {
         id: "10",
         image:
           "https://fitnessprogramer.com/wp-content/uploads/2021/05/Jumping-jack.gif",
         name: "JUMPING JACKS",
-        sets: 6,
+        sets: 10,
       },
       {
         id: "11",
         image:
           "https://www.inspireusafoundation.org/wp-content/uploads/2023/03/incline-push-up.gif",
         name: "INCLINE PUSH-UPS",
-        sets: 4,
+        sets: 8,
       },
       {
         id: "12",
         image:
           "https://fitnessprogramer.com/wp-content/uploads/2022/02/Cross-Body-Push-up_Plyometric.gif",
         name: "CROSS BODY PUSH-UP",
-        sets: 4,
+        sets: 8,
       },
       {
         id: "13",
         image:
           "https://fitnessprogramer.com/wp-content/uploads/2021/02/SNAP-JUMPS.gif",
         name: "SNAP JUMPS",
-        sets: 6,
+        sets: 10,
       },
       {
         id: "14",
         image:
           "https://fitnessprogramer.com/wp-content/uploads/2021/02/burpees.gif",
         name: "BURPEES",
-        sets: 6,
+        sets: 8,
       },
       {
         id: "15",
         image:
           "https://fitnessprogramer.com/wp-content/uploads/2021/04/Triceps-dips-on-floors.gif",
         name: "TRICEP DIP",
-        sets: 6,
+        sets: 10,
       },
     ],
   },

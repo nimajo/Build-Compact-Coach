@@ -9,9 +9,12 @@ import React, { useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import { useNavigation } from "@react-navigation/native";
+
 const RestScreen = () => {
   const navigation = useNavigation();
   const [isPlaying, setIsPlaying] = React.useState(true);
+  const [countdownDuration, setCountdownDuration] = useState(60);
+
   return (
     <SafeAreaView style={styles.container}>
       <View>
@@ -46,7 +49,7 @@ const RestScreen = () => {
         <View style={{ bottom: -25 }}>
           <CountdownCircleTimer
             isPlaying={isPlaying}
-            duration={60}
+            duration={countdownDuration}
             colors={["#004777", "#3cc8f0", "#F7B801", "#A30000", "#A30000"]}
             colorsTime={[13, 10, 6, 3, 0]}
             onComplete={() => navigation.goBack()}
@@ -98,6 +101,23 @@ const RestScreen = () => {
             </Text>
           </TouchableOpacity>
         </View>
+
+        {/* Rest Increaser */}
+        <TouchableOpacity
+          style={styles.pause}
+          onPress={() => {
+            setTimeout(() => {
+              setCountdownDuration(countdownDuration + 30); //Adds 30 Seconds
+            }, 2000);
+          }}
+        >
+          <Text
+            className="text-white font-bold text-center"
+            style={styles.pauseText}
+          >
+            Add 30 Seconds
+          </Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -115,9 +135,9 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   pause: {
-    marginTop: 35,
     borderRadius: 15,
-    padding: 8,
+    padding: 10,
+    marginTop: 45,
     backgroundColor: "#2F14B8",
   },
   pauseIcon: {},

@@ -7,7 +7,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { Icon } from '@rneui/themed';
-
+import { WorkoutContext } from './Context';
 import 'react-native-gesture-handler';
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -80,6 +80,8 @@ function Dashboard() {
 function App() {
   
   return (
+    <WorkoutContext>
+
     <NavigationContainer>
     
       <Stack.Navigator screenOptions={globalScreenOptions}>
@@ -107,6 +109,7 @@ function App() {
 
       </Stack.Navigator>
     </NavigationContainer>
+    </WorkoutContext>
   );
 }
 

@@ -7,8 +7,9 @@ import {
   Pressable,
   Image,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { WorkoutItems } from "../Context";
 
 const ExerciseScreen = () => {
   const route = useRoute();
@@ -17,7 +18,21 @@ const ExerciseScreen = () => {
   const [index, setIndex] = useState(0);
   const exercises = route.params.exercises;
   const currentEx = exercises[index];
-  console.log(currentEx, "First Exercise");
+  console.log("Your Exercise is:",currentEx);
+  console.log("Your Exercise is:",currentEx.name);
+  const {
+    completed,
+    setCompleted,
+    workout,
+    setWorkout,
+    setMinutes,
+    minutes,
+    calories,
+    setCalories,
+    sessions,
+    setSessions,
+  } = useContext(WorkoutItems);
+  console.log("Exercise Completed:",completed);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -46,7 +61,11 @@ const ExerciseScreen = () => {
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("Rest");
-
+            setCompleted([...completed, currentEx.name]);
+            setWorkout(workout + 1);
+            setMinutes(minutes + 2.5);
+            setCalories(calories + 5);
+            
             setTimeout(() => {
               setIndex(index + 1); //Gets Second Exercise
             }, 2000);
@@ -60,7 +79,17 @@ const ExerciseScreen = () => {
       {/* Previous and Skip Button  */}
 
       <TouchableOpacity style={styles.prevskipContainer}>
-        <TouchableOpacity style={styles.prevskipB}>
+        <TouchableOpacity
+          disabled={index == 0}
+          onPress={() => {
+            navigation.navigate("Rest");
+
+            setTimeout(() => {
+              setIndex(index - 1);
+            }, 2000);
+          }}
+          style={styles.prevskipB}
+        >
           <Text className="font-bold" style={styles.prevskipT}>
             Previous Exercise
           </Text>
@@ -79,13 +108,13 @@ const ExerciseScreen = () => {
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("Rest");
+            onPress={() => {
+              navigation.navigate("Rest");
 
-            setTimeout(() => {
-              setIndex(index + 1); //Gets Second Exercise
-            }, 2000);
-          }}
+              setTimeout(() => {
+                setIndex(index + 1); //Gets Second Exercise
+              }, 2000);
+            }}
             style={styles.prevskipB}
           >
             <Text className="font-bold" style={styles.prevskipT}>

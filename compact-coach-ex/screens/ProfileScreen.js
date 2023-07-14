@@ -28,7 +28,7 @@ const ProfileScreen = () => {
           setProfileData(data);
           setProfilePictureUrl(data.profilePicture);
         } else {
-          console.log("No such document!");
+          console.log("No such document");
         }
 
         const weights = await AsyncStorage.getItem("weights");
@@ -37,7 +37,7 @@ const ProfileScreen = () => {
           setLatestWeight(weightEntries[weightEntries.length - 1]?.weight);
         }
       } catch (error) {
-        console.log("Error getting profile data: ", error);
+        console.log("PROFILE DATA ERROR : ", error);
       }
     };
     fetchData();
