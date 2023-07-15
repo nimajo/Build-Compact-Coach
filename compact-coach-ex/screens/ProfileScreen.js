@@ -175,6 +175,7 @@ const ProfileScreen = () => {
             containerStyle={{
               width: 200,
               marginHorizontal: 110,
+              marginBottom: 50,
             }}
             titleStyle={{ fontWeight: "bold" }}
           />

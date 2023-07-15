@@ -18,6 +18,7 @@ import { WorkoutItems } from "../Context";
 import GoogleFit, { Scopes } from 'react-native-google-fit';
 
 
+
 const HomeScreen = () => {
   const { workout, minutes, calories, sessions, setSessions } =
     useContext(WorkoutItems);
@@ -26,13 +27,13 @@ const HomeScreen = () => {
   const [profileData, setProfileData] = useState(null);
   const [totalWeightLoss, setTotalWeightLoss] = useState(0);
   const [steps, setSteps] = useState(0);
-  useEffect(() => {
+  useEffect(() => { //gets data from google fit
     const options = {
       scopes: [
-        Scopes.FITNESS_ACTIVITY_READ,
-        Scopes.FITNESS_ACTIVITY_WRITE,
-        Scopes.FITNESS_BODY_READ,
-        Scopes.FITNESS_BODY_WRITE,
+        Scopes.FITNESS_ACTIVITY_READ, //for steps calories etc
+        Scopes.FITNESS_ACTIVITY_WRITE,//for writing the data back into googlefit
+        Scopes.FITNESS_BODY_READ,//for reading heartrate bodyfat percentage etc
+        Scopes.FITNESS_BODY_WRITE,//for writing data back into googlefit
       ],
     };
   
@@ -58,12 +59,12 @@ const HomeScreen = () => {
         }
       })
       .catch(() => {
-        console.log('authorization failed');
+        console.log('authorization failed for GoogleFit');
       });
   }, []);
 
 
-  const fetchData = async () => {
+  const fetchData = async () => { //function gets user data from firestore database using the UID 
     try {
       const docRef = doc(db, "users", user.uid);
       const docSnap = await getDoc(docRef, { source: "server" }); // <-- fetch from server
@@ -77,32 +78,23 @@ const HomeScreen = () => {
     }
   };
 
-  const getTotalWeightLoss = async () => {
+  const getTotalWeightLoss = async () => { //uses the async (local) storage get total weightloss
     try {
       const storedWeightLoss = await AsyncStorage.getItem("totalWeightLoss");
       if (storedWeightLoss !== null) {
         setTotalWeightLoss(JSON.parse(storedWeightLoss));
       }
-    } catch (e) {
+    } catch (error) {
       // Catch any reading errors
-      console.log(e);
+      console.log(error);
     }
   };
 
-  // Call fetchData and getTotalWeightLoss every time the HomeScreen comes into focus
-  useFocusEffect(
+  // uses these functions every time homescreen in focus so that it updates values
+  useFocusEffect( 
     useCallback(() => {
       fetchData();
       getTotalWeightLoss();
-    }, [])
-  );
-
-  //checks workout data everytime homescreen is in focus
-  useFocusEffect(
-    useCallback(() => {
-      fetchData();
-      getTotalWeightLoss();
-      //workout data goes here
     }, [])
   );
 

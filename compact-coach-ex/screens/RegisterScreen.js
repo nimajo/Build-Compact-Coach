@@ -44,14 +44,16 @@ const RegisterScreen = () => {
     }
 
     createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        const myUserUid = user.uid;
-        setDoc(doc(db, "users", myUserUid), {
-          email: user.email,
-          fname: fname,
-          weight: weight,
-        })
+    .then((userCredential) => {
+      const user = userCredential.user;
+      user.displayName = fname;
+      const myUserUid = user.uid;
+      setDoc(doc(db, "users", myUserUid), {
+        email: user.email,
+        fname: fname,
+        weight: weight,
+        displayName: fname,
+      })
           .then(() => {
             console.log("Document successfully written!");
 
