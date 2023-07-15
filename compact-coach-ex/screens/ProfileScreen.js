@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  SafeAreaView,
+  ScrollView,
+  Alert,
+} from "react-native";
 import { auth, db } from "../firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { SafeAreaView } from "react-native";
 import { Button } from "@rneui/themed";
-import { ScrollView } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { WorkoutItems } from "../Context";
 import useAchievements from "../data/achievements";
-import { FlatList } from "react-native";
 const ProfileScreen = () => {
   const user = auth.currentUser;
   const navigation = useNavigation();
@@ -20,8 +24,6 @@ const ProfileScreen = () => {
   const [latestWeight, setLatestWeight] = useState(null);
   const [profilePictureUrl, setProfilePictureUrl] = useState(null);
   const achievements = useAchievements();
-  const { workout, minutes, calories, sessions, setSessions } =
-    useContext(WorkoutItems);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -146,7 +148,13 @@ const ProfileScreen = () => {
           <View style={styles.achievementsContainer}>
             <View style={styles.achievementsGrid}>
               {achievements.map((achievement) => (
-                <View style={styles.achievementItem} key={achievement.id}>
+                <TouchableOpacity
+                  style={styles.achievementItem}
+                  key={achievement.id}
+                  onPress={() =>
+                    Alert.alert(achievement.name, achievement.description)
+                  }
+                >
                   <Image
                     source={achievement.image}
                     style={styles.achievementImage}
@@ -157,7 +165,7 @@ const ProfileScreen = () => {
                   <Text style={styles.achievementDescription}>
                     {achievement.description}
                   </Text>
-                </View>
+                </TouchableOpacity>
               ))}
             </View>
           </View>
@@ -190,26 +198,25 @@ const ProfileScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  // other styles
   achievementsContainer: {
     backgroundColor: "#D3D3D3", // color of box : light grey color
-    margin: 15, // space from the screen edges
-    borderRadius: 15, // rounded corners
-    padding: 15, // space from the box edges to the content
-    alignItems: "center", // center items horizontally
-    justifyContent: "center", // center items vertically
+    margin: 15, 
+    borderRadius: 15, 
+    padding: 15, 
+    alignItems: "center", 
+    justifyContent: "center", 
   },
   achievementsGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
-    alignSelf: "stretch", // ensure the grid takes full width
+    alignSelf: "stretch", 
   },
   achievementItem: {
     width: "30%", // 3 items per row
     margin: "1.66%", // Space between items
     alignItems: "center", // center items horizontally
-    marginBottom: 20, // margin at the bottom of each item
+    marginBottom: 20, 
   },
   achievementImage: {
     width: 70,

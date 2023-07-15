@@ -1,20 +1,15 @@
 import {
   Text,
   TextInput,
-  TouchableOpacity,
-  TouchableHighlight,
   View,
   StyleSheet,
-  Image,
   KeyboardAvoidingView,
-  Pressable,
   Alert,
 } from "react-native";
-import React, { useLayoutEffect, useState } from "react";
+import React, {useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Button, Input, Icon } from "@rneui/themed";
-import { grey } from "@mui/material/colors";
+import { Button, Icon } from "@rneui/themed";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { setDoc } from "firebase/firestore";

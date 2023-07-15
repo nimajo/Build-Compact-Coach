@@ -175,15 +175,9 @@ const ExerciseScreen = () => {
         </TouchableOpacity>
       </View>
 
-      {isLastExercise() ? (
-        <TouchableOpacity onPress={navigateToHome} style={styles.nextButton}>
-          <Text className="text-white font-bold text-center text-xl">NEXT</Text>
-        </TouchableOpacity>
-      ) : (
-        <TouchableOpacity onPress={handleNextPress} style={styles.nextButton}>
-          <Text className="text-white font-bold text-center text-xl">NEXT</Text>
-        </TouchableOpacity>
-      )}
+      <TouchableOpacity onPress={handleNextPress} style={styles.nextButton}>
+  <Text className="text-white font-bold text-center text-xl">NEXT</Text>
+</TouchableOpacity>
 
       <TouchableOpacity style={styles.prevskipContainer}>
         <TouchableOpacity

@@ -1,12 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
-import { Text, View } from 'react-native';
+
 import { NativeWindStyleSheet } from "nativewind";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { Icon } from '@rneui/themed';
+
 import { WorkoutContext } from './Context';
 import 'react-native-gesture-handler';
 const Stack = createNativeStackNavigator();
