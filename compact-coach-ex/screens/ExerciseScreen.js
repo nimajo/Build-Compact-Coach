@@ -12,8 +12,6 @@ import { WorkoutItems } from "../Context";
 import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
-import { useLayoutEffect } from "react";
-import { Ionicons } from "@expo/vector-icons";
 const ExerciseScreen = () => {
   const route = useRoute();
   const navigation = useNavigation();
@@ -24,14 +22,14 @@ const ExerciseScreen = () => {
   // Extracting exercises from the route params
   const exercises = route.params?.exercises || [];
 
-  // Getting current exercise
+  
   const currentExercise = exercises[index] || {};
 
-  // Stopwatch state variables
+  
   const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
 
-  // Getting workout context values
+  
   const {
     completed,
     setCompleted,
@@ -43,13 +41,13 @@ const ExerciseScreen = () => {
     setCalories,
   } = useContext(WorkoutItems);
 
-  // Start the stopwatch for each exercise
+  // for starting stopwatch at the beginning of each exercise
   useEffect(() => {
     setSeconds(0);
     setIsActive(true);
   }, [index]);
 
-  // Stopwatch function to pause and resume
+  // for the stopwatch pause and resume button
   function toggle() {
     setIsActive(!isActive);
   }
@@ -94,12 +92,12 @@ const ExerciseScreen = () => {
     [navigation]
   );
 
-  // Function to handle Next press: update workout counter for homescreen and goto to Rest
+  // Function to  Next press: update workout counter and goto to rest
   const handleNextPress = useCallback(() => {
     setIsActive(false);
     setCompleted((prev) => [...prev, currentExercise.name]);
     setWorkout((w) => w + 1);
-    setCalories((c) => c + 5);
+    setCalories((c) => c + 5); //Calorie Per Workout is set to 5
     if (!isLastExercise()) {
       navigateToRest();
     } else {
@@ -116,7 +114,7 @@ const ExerciseScreen = () => {
     navigateToHome,
   ]);
 
-  // Function to handle Previous press: navigate to Rest and update exercise index
+  // Function for Previous press: navigate to Rest and update exercise index
   const handlePrevPress = useCallback(() => {
     if (index > 0) {
       setIsActive(false);
@@ -127,7 +125,7 @@ const ExerciseScreen = () => {
     }
   }, [index, setIsActive, navigation]);
 
-  // Function to handle Skip press: if it's not the last exercise, navigate to Rest and update exercise index; if it's the last one, navigate to Home
+  // Function for Skip press
   const handleSkipPress = useCallback(() => {
     if (!isLastExercise()) {
       setIsActive(false);
@@ -166,7 +164,7 @@ const ExerciseScreen = () => {
           {("0" + Math.floor(seconds / 60)).slice(-2)} :{" "}
           {("0" + (seconds % 60)).slice(-2)}
         </Text>
-        <TouchableOpacity onPress={toggle} style={styles.pauseButton}>
+        <TouchableOpacity onPress={toggle} style={styles.pauseButton} accessibilityLabel="Tap to Pause/Resume Workout">
           {isActive ? (
             <AntDesign name="pause" size={28} color="white" />
           ) : (
@@ -175,7 +173,7 @@ const ExerciseScreen = () => {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity onPress={handleNextPress} style={styles.nextButton}>
+      <TouchableOpacity onPress={handleNextPress} style={styles.nextButton} accessibilityLabel="Tap to goto Next Workout">
   <Text className="text-white font-bold text-center text-xl">NEXT</Text>
 </TouchableOpacity>
 
@@ -190,7 +188,7 @@ const ExerciseScreen = () => {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={handleSkipPress} style={styles.prevskipB}>
+        <TouchableOpacity onPress={handleSkipPress} style={styles.prevskipB} accessibilityLabel="Tap to skip Workout">
           <Text className="font-bold" style={styles.prevskipT}>
             Skip Exercise
           </Text>

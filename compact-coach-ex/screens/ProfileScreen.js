@@ -29,15 +29,16 @@ const ProfileScreen = () => {
     const fetchData = async () => {
       try {
         const docRef = doc(db, "users", user.uid);
-        const docSnap = await getDoc(docRef, { source: "server" }); // <-- fetch from server
+        const docSnap = await getDoc(docRef, { source: "server" }); // fetch from server
         if (docSnap.exists()) {
-          const data = docSnap.data();
+          const data = docSnap.data(); //data = profileData
           setProfileData(data);
           setProfilePictureUrl(data.profilePicture);
         } else {
-          console.log("No such document");
+          console.log("No such document : Profile Data");
         }
 
+        // Gets Latest Weight Entry
         const weights = await AsyncStorage.getItem("weights");
         if (weights !== null) {
           const weightEntries = JSON.parse(weights);

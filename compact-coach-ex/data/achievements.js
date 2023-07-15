@@ -33,7 +33,7 @@ const useAchievements = () => {
       newAchievements.push({
         id: 3,
         name: "Time Keeper",
-        description: "Workout for more than 10 minutes",
+        description: "Workout for more than 10 minutes!",
         image: require("../images/achievement4.png"),
       });
     }
@@ -42,7 +42,7 @@ const useAchievements = () => {
       newAchievements.push({
         id: 4,
         name: "Calorie Burner",
-        description: "Burn more than 50 calories",
+        description: "Burn more than 50 calories!",
         image: require("../images/achievement1.png"),
       });
     }

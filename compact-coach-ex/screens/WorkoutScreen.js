@@ -11,19 +11,16 @@ import {
 import React, { useContext } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
-import ExerciseScreen from "./ExerciseScreen";
 import { WorkoutItems } from "../Context";
 import { Entypo } from "@expo/vector-icons";
 
 const WorkoutScreen = () => {
   const route = useRoute();
-  console.log(route.params);
   const navigation = useNavigation();
   const { completed, setCompleted } = useContext(WorkoutItems);
   return (
-    <>
-      <ScrollView style={styles.container}>
-        <Image style={styles.ImageStyle} source={{ uri: route.params.image }} />
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
         <Ionicons
           style={styles.backIcon}
           name="arrow-back"
@@ -32,89 +29,106 @@ const WorkoutScreen = () => {
           onPress={() => navigation.goBack()}
           accessibilityLabel="Tap to Return to Home"
         />
-        <Text style={styles.ExerciseList}>Exercise List</Text>
-
+        <Image style={styles.ImageStyle} source={{ uri: route.params.image }} />
+      </View>
+      <Text style={styles.ExerciseList}>Exercise List</Text>
+      <ScrollView style={styles.exerciseContainer}>
         {route.params.exercises.map((item, index) => (
-          <Pressable style={styles.ExercisePressable} key={index}>
+          <View style={styles.ExercisePressable} key={index}>
             <Image style={styles.exerciseImage} source={{ uri: item.image }} />
-            <View style={{ marginLeft: 10 }}>
-              <Text style={{ fontSize: 17, fontWeight: "bold", width: 170 }}>
-                {item.name}
-              </Text>
-              <Text style={{ marginTop: 4, fontSize: 18, color: "gray" }}>
-                {item.sets} Sets
-              </Text>
+            <View style={styles.textContainer}>
+              <Text style={styles.exerciseName}>{item.name}</Text>
+              <Text style={styles.sets}>{item.sets} Sets</Text>
             </View>
-            {completed.includes(item.name) ? (
+            {completed.includes(item.name) ? ( //ifelse completed exercise
               <Ionicons name="checkmark-done-circle" size={24} color="green" />
             ) : (
               <Entypo name="circle-with-cross" size={24} color="grey" />
             )}
-          </Pressable>
+          </View>
         ))}
       </ScrollView>
-
-      <View className="bg-white">
-        <TouchableOpacity
-          style={styles.startButton}
-          onPress={() => {
-            navigation.navigate("Exercise", {
-              exercises: route.params.exercises,
-            });
-            setCompleted([]);
-          }}
-        >
-          <Text style={styles.startText}>START SESSION</Text>
-        </TouchableOpacity>
-      </View>
-    </>
+      <TouchableOpacity
+        style={styles.startButton}
+        onPress={() => {
+          navigation.navigate("Exercise", {
+            exercises: route.params.exercises,
+          });
+          setCompleted([]);
+        }}
+      >
+        <Text style={styles.startText}>START SESSION</Text>
+      </TouchableOpacity>
+    </SafeAreaView>
   );
 };
 
 export default WorkoutScreen;
 
 const styles = StyleSheet.create({
-  ImageStyle: {
-    width: "100%",
-    height: 170,
-  },
   container: {
     backgroundColor: "white",
-    marginTop: 30,
     flex: 1,
+  },
+  header: {
+    width: "100%",
+    height: 170,
+    position: "relative",
+  },
+  ImageStyle: {
+    width: "100%",
+    height: "100%",
   },
   backIcon: {
     position: "absolute",
     top: 20,
     left: 20,
+    zIndex: 1,
   },
   exerciseImage: {
     width: 90,
     height: 90,
+    borderRadius: 45,
+    marginRight: 10,
   },
   ExercisePressable: {
-    margin: 10,
     flexDirection: "row",
-    alignContent: "center",
+    alignItems: "center",
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd', //seperates the exercises
   },
-  startText: {
-    textAlign: "center",
-    color: "white",
-    fontSize: 24,
+  textContainer: {
+    flex: 1,
+  },
+  exerciseName: {
+    fontSize: 18,
     fontWeight: "bold",
   },
-  startButton: {
-    backgroundColor: "#2F14B8",
-    marginLeft: "auto",
-    marginRight: "auto",
-    marginVertical: 20,
-    padding: 10,
-    borderRadius: 15,
+  sets: {
+    marginTop: 4,
+    fontSize: 14,
+    color: "gray",
   },
   ExerciseList: {
     paddingLeft: 10,
     paddingTop: 20,
-    fontWeight: 600,
-    fontSize: 15,
+    fontWeight: "bold",
+    fontSize: 20,
+  },
+  startButton: {
+    backgroundColor: "#2F14B8",
+    paddingVertical: 15,
+    borderRadius: 15,
+    margin: 20,
+  },
+  startText: {
+    textAlign: "center",
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  exerciseContainer: {
+    flex: 1,
   },
 });

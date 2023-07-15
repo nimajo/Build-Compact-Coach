@@ -39,21 +39,21 @@ const HomeScreen = () => {
     GoogleFit.authorize(options)
       .then((authResult) => {
         if (authResult.success) {
-          GoogleFit.getDailyStepCountSamples({
+          GoogleFit.getDailyStepCountSamples({ //Steps for Current Date
             startDate: new Date().toISOString(),
             endDate: new Date().toISOString(),
           })
             .then((res) => {
               let totalSteps = 0;
               res.forEach((dataset) => {
-                dataset.steps.forEach((step) => {
+                dataset.steps.forEach((step) => { //each dataset added to totalsteps
                   totalSteps += step.value;
                 });
               });
               setSteps(totalSteps);
             })
-            .catch((err) => {
-              console.log(err);
+            .catch((error) => {
+              console.log("GoogleFit totalStep ERROR:",error);
             });
         }
       })
@@ -66,14 +66,14 @@ const HomeScreen = () => {
     //function gets user data from firestore database using the UID
     try {
       const docRef = doc(db, "users", user.uid);
-      const docSnap = await getDoc(docRef, { source: "server" }); // <-- fetch from server
+      const docSnap = await getDoc(docRef, { source: "server" }); //fetch from server
       if (docSnap.exists()) {
         setProfileData(docSnap.data());
       } else {
-        console.log("No such document!");
+        console.log("No document (FetchData ERRROR)");
       }
     } catch (error) {
-      console.log("Error getting profile data: ", error);
+      console.log("ERROR getting profile data: ", error);
     }
   };
 
@@ -86,7 +86,7 @@ const HomeScreen = () => {
       }
     } catch (error) {
       // Catch any reading errors
-      console.log(error);
+      console.log("getTotalWeightLoss ERROR:",error);
     }
   };
 
@@ -113,7 +113,7 @@ const HomeScreen = () => {
           )}
           {totalWeightLoss < 0 && (
             <Text
-              className="flex-row  text-xl leading-relaxed font-small font-light "
+              className="flex-row  text-xl leading-relaxed font-small font-light"
               style={{
                 marginTop: 10,
                 marginLeft: 10,

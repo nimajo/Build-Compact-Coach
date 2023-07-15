@@ -3,17 +3,16 @@ import {
   TextInput,
   View,
   StyleSheet,
-  Image,
   KeyboardAvoidingView,
   ActivityIndicator,
 } from "react-native";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Button, Input, Icon } from "@rneui/themed";
+import { Button, Icon } from "@rneui/themed";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { auth, } from "../firebase";
+
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");

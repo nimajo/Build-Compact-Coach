@@ -9,44 +9,71 @@ import {
 import React from "react";
 import fitness from "../data/fitness";
 import { useNavigation } from "@react-navigation/native";
+
 const FitnessTemps = () => {
-  // Assign the fitness data to a variable for better readability
   const FitnessData = fitness;
   const navigation = useNavigation();
+
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-      {/* Map through the fitness data and render each item */}
-      {FitnessData.map((item, key) => (
-        <Pressable
-          style={styles.PressStyle}
-          key={key}
-          onPress={() =>
-            navigation.navigate("Workout", {
-              image: item.image,
-              exercises: item.excersises,
-              id: item.id,
-            })
-          }
-        >
-          <Image style={styles.PressImage} source={{ uri: item.image }} />
-          <Text style={styles.PressText}>{item.name}</Text>
-        </Pressable>
-      ))}
+      <View style={styles.row}>
+        {FitnessData.map((item, key) => (
+          <Pressable
+            style={({ pressed }) => [
+              {
+                backgroundColor: pressed
+                  ? 'rgba(0,0,0,0.1)'
+                  : 'transparent',
+              },
+              styles.PressStyle,
+            ]}
+            key={key}
+            onPress={() =>
+              navigation.navigate("Workout", {
+                image: item.image,
+                exercises: item.excersises,
+                id: item.id,
+              })
+            }
+          >
+            <Image style={styles.PressImage} source={{ uri: item.image }} />
+            <Text style={styles.PressText}>{item.name}</Text>
+          </Pressable>
+        ))}
+      </View>
     </ScrollView>
   );
 };
 export default FitnessTemps;
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
     marginTop: 50,
   },
+  row: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    
+  },
   PressStyle: {
+    backgroundColor:"white",
     alignItems: "center",
     justifyContent: "center",
     margin: 10,
     paddingTop: 10,
-    borderRadius: 20,
+    paddingBottom:10,
+    borderRadius: 15,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 50,
+    width: '42.5%',  
   },
   PressImage: {
     width: "100%",
@@ -58,7 +85,9 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 16,
     fontWeight: "bold",
-    left: 20,
-    top: 25,
+    textAlign: 'center',  
+    top: 20,  
+    left: 0, 
+    right: 0, 
   },
 });

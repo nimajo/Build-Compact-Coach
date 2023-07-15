@@ -17,16 +17,18 @@ import {
   query,
 } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Alert } from "react-native";
+import moment from 'moment'; // make sure to install moment.js
+
 const ChatScreen = () => {
-  const [user] = useAuthState(auth);
+  const [user] = useAuthState(auth); //authentication state for firebase
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
 
+  // q = firebase query that gets messages and orders by timestamp
   useEffect(() => {
     const q = query(collection(db, "messages"), orderBy("timestamp"));
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      setMessages(
+      setMessages( //updates state with new messages
         snapshot.docs.map((doc) => ({
           id: doc.id,
           data: doc.data(),
@@ -36,13 +38,10 @@ const ChatScreen = () => {
     return () => unsubscribe();
   }, []);
 
-  const handleInputChange = (e) => {
-    setInput(e.target.value);
-  };
-
   const sendMessage = async (e) => {
     e.preventDefault();
 
+    // Adds Message to Doc with these parameters
     if (input.trim()) {
       await addDoc(collection(db, "messages"), {
         text: input,
@@ -69,6 +68,7 @@ const ChatScreen = () => {
           >
             <Text style={styles.displayName}>{data.displayName}: </Text>
             <Text style={styles.messageText}>{data.text}</Text>
+            <Text style={styles.timestamp}>{moment(data.timestamp.toDate()).calendar()}</Text>
           </View>
         ))}
       </ScrollView>
@@ -130,6 +130,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   messageText: {},
+  timestamp: {
+    fontSize: 10,
+    color: '#222222',
+  },
   footer: {
     flexDirection: "row",
     padding: 10,
