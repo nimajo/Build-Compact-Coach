@@ -8,25 +8,21 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import ExerciseScreen from "./ExerciseScreen";
 import { WorkoutItems } from "../Context";
-import { Entypo } from '@expo/vector-icons';
-
+import { Entypo } from "@expo/vector-icons";
 
 const WorkoutScreen = () => {
   const route = useRoute();
   console.log(route.params);
   const navigation = useNavigation();
-  const {
-    completed,
-    setCompleted,
-  } = useContext(WorkoutItems);
+  const { completed, setCompleted } = useContext(WorkoutItems);
   return (
     <>
-      <ScrollView  style={styles.container}>
+      <ScrollView style={styles.container}>
         <Image style={styles.ImageStyle} source={{ uri: route.params.image }} />
         <Ionicons
           style={styles.backIcon}
@@ -64,7 +60,7 @@ const WorkoutScreen = () => {
           onPress={() => {
             navigation.navigate("Exercise", {
               exercises: route.params.exercises,
-            })
+            });
             setCompleted([]);
           }}
         >
@@ -85,7 +81,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
     marginTop: 30,
-    flex:1,
+    flex: 1,
   },
   backIcon: {
     position: "absolute",

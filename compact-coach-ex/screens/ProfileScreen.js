@@ -144,42 +144,46 @@ const ProfileScreen = () => {
 
           {/*  achievement badges here */}
           <View style={styles.achievementsContainer}>
-          <View style={styles.achievementsGrid}>
-          {achievements.map(achievement => (
-            <View style={styles.achievementItem} key={achievement.id}>
-              <Image source={achievement.image} style={styles.achievementImage} />
-              <Text style={styles.achievementTitle}>{achievement.name}</Text>
-              <Text style={styles.achievementDescription}>{achievement.description}</Text>
+            <View style={styles.achievementsGrid}>
+              {achievements.map((achievement) => (
+                <View style={styles.achievementItem} key={achievement.id}>
+                  <Image
+                    source={achievement.image}
+                    style={styles.achievementImage}
+                  />
+                  <Text style={styles.achievementTitle}>
+                    {achievement.name}
+                  </Text>
+                  <Text style={styles.achievementDescription}>
+                    {achievement.description}
+                  </Text>
+                </View>
+              ))}
             </View>
-          ))}
+          </View>
         </View>
 
-          </View>
-      </View>
+        {/** SignOut Button */}
 
-          {/** SignOut Button */}
+        <Button
+          title="Sign Out"
+          onPress={signOutUser}
+          buttonStyle={{
+            alignItems: "center",
+            backgroundColor: "#2F14B8",
 
-          <Button
-            title="Sign Out"
-            onPress={signOutUser}
-            buttonStyle={{
-              alignItems: "center",
-              backgroundColor: "#2F14B8",
-
-              accessibilityLabel:
-                "Press to Sign Out",
-              borderWidth: 2,
-              borderColor: "white",
-              borderRadius: 15,
-            }}
-            containerStyle={{
-              width: 200,
-              marginHorizontal: 110,
-              marginBottom: 50,
-            }}
-            titleStyle={{ fontWeight: "bold" }}
-          />
-        
+            accessibilityLabel: "Press to Sign Out",
+            borderWidth: 2,
+            borderColor: "white",
+            borderRadius: 15,
+          }}
+          containerStyle={{
+            width: 200,
+            marginHorizontal: 110,
+            marginBottom: 50,
+          }}
+          titleStyle={{ fontWeight: "bold" }}
+        />
       </ScrollView>
     </SafeAreaView>
   );
@@ -199,7 +203,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
-    alignSelf: 'stretch', // ensure the grid takes full width
+    alignSelf: "stretch", // ensure the grid takes full width
   },
   achievementItem: {
     width: "30%", // 3 items per row
@@ -220,6 +224,5 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
-
 
 export default ProfileScreen;

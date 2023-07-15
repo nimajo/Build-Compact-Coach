@@ -143,14 +143,14 @@ const ExerciseScreen = () => {
         style={styles.ExerciseImage}
         source={{ uri: currentExercise.image }}
       />
-              <Octicons
-          style={styles.backIcon}
-          name="checklist"
-          size={28}
-          color="black"
-          onPress={() => navigation.goBack()}
-          accessibilityLabel="Tap to Return to Workout List"
-        />
+      <Octicons
+        style={styles.backIcon}
+        name="checklist"
+        size={28}
+        color="black"
+        onPress={() => navigation.goBack()}
+        accessibilityLabel="Tap to Return to Workout List"
+      />
       <Text
         className="flex-row text-2xl font-extrabold"
         style={styles.ExerciseName}

@@ -15,9 +15,7 @@ import { StyleSheet } from "react-native";
 import FitnessTemps from "../components/FitnessTemps";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { WorkoutItems } from "../Context";
-import GoogleFit, { Scopes } from 'react-native-google-fit';
-
-
+import GoogleFit, { Scopes } from "react-native-google-fit";
 
 const HomeScreen = () => {
   const { workout, minutes, calories, sessions, setSessions } =
@@ -27,16 +25,17 @@ const HomeScreen = () => {
   const [profileData, setProfileData] = useState(null);
   const [totalWeightLoss, setTotalWeightLoss] = useState(0);
   const [steps, setSteps] = useState(0);
-  useEffect(() => { //gets data from google fit
+  useEffect(() => {
+    //gets data from google fit
     const options = {
       scopes: [
         Scopes.FITNESS_ACTIVITY_READ, //for steps calories etc
-        Scopes.FITNESS_ACTIVITY_WRITE,//for writing the data back into googlefit
-        Scopes.FITNESS_BODY_READ,//for reading heartrate bodyfat percentage etc
-        Scopes.FITNESS_BODY_WRITE,//for writing data back into googlefit
+        Scopes.FITNESS_ACTIVITY_WRITE, //for writing the data back into googlefit
+        Scopes.FITNESS_BODY_READ, //for reading heartrate bodyfat percentage etc
+        Scopes.FITNESS_BODY_WRITE, //for writing data back into googlefit
       ],
     };
-  
+
     GoogleFit.authorize(options)
       .then((authResult) => {
         if (authResult.success) {
@@ -59,12 +58,12 @@ const HomeScreen = () => {
         }
       })
       .catch(() => {
-        console.log('authorization failed for GoogleFit');
+        console.log("authorization failed for GoogleFit");
       });
   }, []);
 
-
-  const fetchData = async () => { //function gets user data from firestore database using the UID 
+  const fetchData = async () => {
+    //function gets user data from firestore database using the UID
     try {
       const docRef = doc(db, "users", user.uid);
       const docSnap = await getDoc(docRef, { source: "server" }); // <-- fetch from server
@@ -78,7 +77,8 @@ const HomeScreen = () => {
     }
   };
 
-  const getTotalWeightLoss = async () => { //uses the async (local) storage get total weightloss
+  const getTotalWeightLoss = async () => {
+    //uses the async (local) storage get total weightloss
     try {
       const storedWeightLoss = await AsyncStorage.getItem("totalWeightLoss");
       if (storedWeightLoss !== null) {
@@ -91,7 +91,7 @@ const HomeScreen = () => {
   };
 
   // uses these functions every time homescreen in focus so that it updates values
-  useFocusEffect( 
+  useFocusEffect(
     useCallback(() => {
       fetchData();
       getTotalWeightLoss();
@@ -188,11 +188,12 @@ const HomeScreen = () => {
             >
               Steps
             </Text>
-            <Text style={{position:'absolute',top:35,left:40}}
-            className="text-2xl font-extrabold">
+            <Text
+              style={{ position: "absolute", top: 35, left: 40 }}
+              className="text-2xl font-extrabold"
+            >
               {steps}
             </Text>
-
 
             <MaterialCommunityIcons
               name="shoe-print"
@@ -221,8 +222,10 @@ const HomeScreen = () => {
                 Alert.alert("You had a Heart Rate of This today");
               }}
             />
-                        <Text style={{position:'absolute',top:38,left:30}}
-            className="text-2xl font-extrabold">
+            <Text
+              style={{ position: "absolute", top: 38, left: 30 }}
+              className="text-2xl font-extrabold"
+            >
               99
             </Text>
           </View>
