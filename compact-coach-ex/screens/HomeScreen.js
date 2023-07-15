@@ -200,6 +200,8 @@ const HomeScreen = () => {
             className="text-2xl font-extrabold">
               {steps}
             </Text>
+
+
             <MaterialCommunityIcons
               name="shoe-print"
               size={30}
@@ -227,6 +229,10 @@ const HomeScreen = () => {
                 Alert.alert("You had a Heart Rate of This today");
               }}
             />
+                        <Text style={{position:'absolute',top:38,left:30}}
+            className="text-2xl font-extrabold">
+              99
+            </Text>
           </View>
         </View>
 

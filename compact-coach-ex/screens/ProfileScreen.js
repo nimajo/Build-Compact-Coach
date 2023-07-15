@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { auth, db } from "../firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-
+import { useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaView } from "react-native";
@@ -10,13 +10,18 @@ import { Button } from "@rneui/themed";
 import { ScrollView } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-
+import { WorkoutItems } from "../Context";
+import useAchievements from "../data/achievements";
+import { FlatList } from "react-native";
 const ProfileScreen = () => {
   const user = auth.currentUser;
   const navigation = useNavigation();
   const [profileData, setProfileData] = useState(null);
   const [latestWeight, setLatestWeight] = useState(null);
   const [profilePictureUrl, setProfilePictureUrl] = useState(null);
+  const achievements = useAchievements();
+  const { workout, minutes, calories, sessions, setSessions } =
+    useContext(WorkoutItems);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -98,11 +103,6 @@ const ProfileScreen = () => {
       });
   };
 
-  //Commented Out Graph Redirector , Obselete
-  //const goToGraphScreen = () => {
-  // navigation.navigate('GraphScreen');
-  //}
-
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -131,25 +131,6 @@ const ProfileScreen = () => {
           )}
         </View>
 
-        {/* //Commented Out Graph Redirector , Obselete */}
-        {/** Update Weight Redirect Button        
-<Button
-title="Update Weight"
-onPress={() => navigation.navigate('Dashboard', { screen: 'Graph' })} 
-buttonStyle={{
-alignItems:"center",
-backgroundColor: '#1E2923',
-borderWidth: 2,
-borderColor: 'white',
-borderRadius: 30,
-}}
-containerStyle={{
-width: 150,
-marginHorizontal: 130,
-marginVertical: 60,
-}}
-titleStyle={{ fontWeight: 'bold' }}/>*/}
-
         <View style={{ flex: 1 }}>
           <Text
             className="capitalize flex-row text-center text-xl font-bold "
@@ -161,9 +142,20 @@ titleStyle={{ fontWeight: 'bold' }}/>*/}
             Achievements
           </Text>
 
+          {/*  achievement badges here */}
           <View style={styles.achievementsContainer}>
-            {/*  achievement badges here */}
+          <View style={styles.achievementsGrid}>
+          {achievements.map(achievement => (
+            <View style={styles.achievementItem} key={achievement.id}>
+              <Image source={achievement.image} style={styles.achievementImage} />
+              <Text style={styles.achievementTitle}>{achievement.name}</Text>
+              <Text style={styles.achievementDescription}>{achievement.description}</Text>
+            </View>
+          ))}
+        </View>
+
           </View>
+      </View>
 
           {/** SignOut Button */}
 
@@ -175,7 +167,7 @@ titleStyle={{ fontWeight: 'bold' }}/>*/}
               backgroundColor: "#2F14B8",
 
               accessibilityLabel:
-                "Type your message and use this button to submit",
+                "Press to Sign Out",
               borderWidth: 2,
               borderColor: "white",
               borderRadius: 15,
@@ -186,7 +178,7 @@ titleStyle={{ fontWeight: 'bold' }}/>*/}
             }}
             titleStyle={{ fontWeight: "bold" }}
           />
-        </View>
+        
       </ScrollView>
     </SafeAreaView>
   );
@@ -197,11 +189,36 @@ const styles = StyleSheet.create({
   achievementsContainer: {
     backgroundColor: "#D3D3D3", // color of box : light grey color
     margin: 15, // space from the screen edges
-    padding: 150, // space from the box edges to the content
     borderRadius: 15, // rounded corners
+    padding: 15, // space from the box edges to the content
     alignItems: "center", // center items horizontally
     justifyContent: "center", // center items vertically
   },
+  achievementsGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    alignSelf: 'stretch', // ensure the grid takes full width
+  },
+  achievementItem: {
+    width: "30%", // 3 items per row
+    margin: "1.66%", // Space between items
+    alignItems: "center", // center items horizontally
+    marginBottom: 20, // margin at the bottom of each item
+  },
+  achievementImage: {
+    width: 70,
+    height: 70,
+  },
+  achievementTitle: {
+    fontWeight: "bold",
+    textAlign: "center",
+    marginTop: 5,
+  },
+  achievementDescription: {
+    textAlign: "center",
+  },
 });
+
 
 export default ProfileScreen;
