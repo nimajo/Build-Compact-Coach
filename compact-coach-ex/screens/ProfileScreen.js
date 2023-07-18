@@ -10,15 +10,18 @@ import {
   Alert,
   Linking,
 } from "react-native";
-import { auth, db } from "../firebase";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { auth, db, storage } from "../firebase";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Button } from "@rneui/themed";
-import * as ImagePicker from "expo-image-picker";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import * as ImagePicker from 'expo-image-picker';
+import useProfilePicture from "../components/ProfilePic";
 import useAchievements from "../data/achievements";
 import { WorkoutItems } from "../Context";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
+
 const ProfileScreen = () => {
   const user = auth.currentUser;
   const navigation = useNavigation();
@@ -26,8 +29,8 @@ const ProfileScreen = () => {
   const [latestWeight, setLatestWeight] = useState(null);
   const [profilePictureUrl, setProfilePictureUrl] = useState(null);
   const achievements = useAchievements();
-  const { workout, minutes, calories, xp, } =
-  useContext(WorkoutItems);
+  const { xp } = useContext(WorkoutItems);
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,29 +62,29 @@ const ProfileScreen = () => {
   const uploadProfilePicture = async (uri, uid) => {
     const response = await fetch(uri);
     const blob = await response.blob();
-    const uploadTask = uploadBytesResumable(
-      ref(storage, `profile_pictures/${uid}`),
-      blob
-    );
-
+    
+    const fileRef = ref(storage, `profile_pictures/${uid}`);
+  
     try {
-      await uploadTask;
-      const url = await getDownloadURL(ref(storage, `profile_pictures/${uid}`));
+      await uploadBytes(fileRef, blob);
+      const url = await getDownloadURL(fileRef);
       return url;
     } catch (e) {
       console.error(e);
       return null;
     }
   };
-
   const updateProfileWithPicture = async (uid, url) => {
-    await setDoc(
-      doc(db, "users", uid),
-      {
+    const userRef = doc(db, "users", uid);
+
+    try {
+      await updateDoc(userRef, {
         profilePicture: url,
-      },
-      { merge: true }
-    );
+      });
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   };
 
   const onChangeProfilePicture = async () => {
@@ -91,11 +94,17 @@ const ProfileScreen = () => {
       aspect: [1, 1],
       quality: 1,
     });
-
-    if (!result.cancelled) {
-      const url = await uploadProfilePicture(result.uri, user.uid);
-      await updateProfileWithPicture(user.uid, url);
-      setProfilePictureUrl(url);
+  
+    if (!result.canceled) {
+      try {
+        // Accessing the uri from the first element of the assets array
+        const url = await uploadProfilePicture(result.assets[0].uri, user.uid);
+        await updateProfileWithPicture(user.uid, url);
+        setProfilePictureUrl(url);
+      } catch (e) {
+        console.error(e);
+        Alert.alert('Error', 'Failed to update profile picture.');
+      }
     }
   };
 
@@ -175,9 +184,7 @@ const ProfileScreen = () => {
                 </TouchableOpacity>
               ))}
             </View>
-            
           </View>
-          
         </View>
 
         {/** SignOut Button */}
@@ -201,7 +208,15 @@ const ProfileScreen = () => {
           }}
           titleStyle={{ fontWeight: "bold" }}
         />
-        <Text style={styles.attribution} title="workout icons" onPress={() => Linking.openURL('https://www.flaticon.com/free-icons/workout')}>Workout icons created by Freepik - Flaticon</Text>
+        <Text
+          style={styles.attribution}
+          title="workout icons"
+          onPress={() =>
+            Linking.openURL("https://www.flaticon.com/free-icons/workout")
+          }
+        >
+          Workout icons created by Freepik - Flaticon
+        </Text>
       </ScrollView>
     </SafeAreaView>
   );
@@ -210,23 +225,23 @@ const ProfileScreen = () => {
 const styles = StyleSheet.create({
   achievementsContainer: {
     backgroundColor: "#D3D3D3", // color of box : light grey color
-    margin: 15, 
-    borderRadius: 15, 
-    padding: 15, 
-    alignItems: "center", 
-    justifyContent: "center", 
+    margin: 15,
+    borderRadius: 15,
+    padding: 15,
+    alignItems: "center",
+    justifyContent: "center",
   },
   achievementsGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
-    alignSelf: "stretch", 
+    alignSelf: "stretch",
   },
   achievementItem: {
     width: "30%", // 3 items per row
     margin: "1.66%", // Space between items
     alignItems: "center", // center items horizontally
-    marginBottom: 20, 
+    marginBottom: 20,
   },
   achievementImage: {
     width: 70,
@@ -240,11 +255,10 @@ const styles = StyleSheet.create({
   achievementDescription: {
     textAlign: "center",
   },
-  attribution:{
-    textAlign:"center",
-    fontSize:11
+  attribution: {
+    textAlign: "center",
+    fontSize: 11,
   },
-
 });
 
 export default ProfileScreen;
