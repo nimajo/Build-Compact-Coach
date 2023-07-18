@@ -9,17 +9,19 @@ import {
   ScrollView,
   Alert,
   Linking,
+  useCallback,
 } from "react-native";
 import { auth, db, storage } from "../firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation , useFocusEffect, } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Button } from "@rneui/themed";
 import * as ImagePicker from 'expo-image-picker';
 import useProfilePicture from "../components/ProfilePic";
 import useAchievements from "../data/achievements";
 import { WorkoutItems } from "../Context";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+ 
+
 
 
 const ProfileScreen = () => {
@@ -27,11 +29,14 @@ const ProfileScreen = () => {
   const navigation = useNavigation();
   const [profileData, setProfileData] = useState(null);
   const [latestWeight, setLatestWeight] = useState(null);
-  const [profilePictureUrl, setProfilePictureUrl] = useState(null);
+  const { profilePictureUrl, onChangeProfilePicture, fetchProfilePicture } = useProfilePicture(storage, db, auth);
+
   const achievements = useAchievements();
   const { xp } = useContext(WorkoutItems);
-  
+  const [loading, setLoading] = useState(true);
 
+
+  //update state
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -41,7 +46,7 @@ const ProfileScreen = () => {
         if (docSnap.exists()) {
           const data = docSnap.data(); //data = profileData
           setProfileData(data);
-          setProfilePictureUrl(data.profilePicture);
+          
         } else {
           console.log("No such document : Profile Data");
         }
@@ -57,56 +62,12 @@ const ProfileScreen = () => {
       }
     };
     fetchData();
+    fetchProfilePicture();
+    
   }, [user]);
 
-  const uploadProfilePicture = async (uri, uid) => {
-    const response = await fetch(uri);
-    const blob = await response.blob();
-    
-    const fileRef = ref(storage, `profile_pictures/${uid}`);
-  
-    try {
-      await uploadBytes(fileRef, blob);
-      const url = await getDownloadURL(fileRef);
-      return url;
-    } catch (e) {
-      console.error(e);
-      return null;
-    }
-  };
-  const updateProfileWithPicture = async (uid, url) => {
-    const userRef = doc(db, "users", uid);
 
-    try {
-      await updateDoc(userRef, {
-        profilePicture: url,
-      });
-    } catch (e) {
-      console.error(e);
-      throw e;
-    }
-  };
 
-  const onChangeProfilePicture = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 1,
-    });
-  
-    if (!result.canceled) {
-      try {
-        // Accessing the uri from the first element of the assets array
-        const url = await uploadProfilePicture(result.assets[0].uri, user.uid);
-        await updateProfileWithPicture(user.uid, url);
-        setProfilePictureUrl(url);
-      } catch (e) {
-        console.error(e);
-        Alert.alert('Error', 'Failed to update profile picture.');
-      }
-    }
-  };
 
   // Sign out function
   const signOutUser = () => {
@@ -137,6 +98,8 @@ const ProfileScreen = () => {
                 height: 100,
                 borderRadius: 50,
                 alignSelf: "center",
+                borderWidth:1,
+                borderColor:"black"
               }}
             />
           </TouchableOpacity>

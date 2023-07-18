@@ -5,12 +5,12 @@ import { useState, useEffect, useContext } from "react";
 import { WorkoutItems } from "../Context";
 
 const useAchievements = () => {
-  const { workout, minutes, calories } = useContext(WorkoutItems);
+  const { workout, minutes, calories,xp } = useContext(WorkoutItems);
   const [achievements, setAchievements] = useState([]);
 
   useEffect(() => {
     const newAchievements = [];
-
+    // New Achievement for starting out
     if (workout >= 0) {
       newAchievements.push({
         id: 1,
@@ -19,8 +19,8 @@ const useAchievements = () => {
         image: require("../images/achievement2.png"),
       });
     }
-
-    if (workout > 10) {
+    // New Achievement for working out 10+ times
+    if (workout > 10 ) {
       newAchievements.push({
         id: 2,
         name: "Workout Warrior",
@@ -28,8 +28,8 @@ const useAchievements = () => {
         image: require("../images/benchpressman1.png"),
       });
     }
-
-    if (minutes > 10) { 
+    // New Achievement for working out for more than 10 minutes
+    if (minutes > 10 ) { 
       newAchievements.push({
         id: 3,
         name: "Time Keeper",
@@ -37,8 +37,8 @@ const useAchievements = () => {
         image: require("../images/achievement4.png"),
       });
     }
-
-    if (calories > 10) {
+    // New Achievement for burning more than 10 kcal
+    if (calories > 10 ) {
       newAchievements.push({
         id: 4,
         name: "Calorie Burner",
@@ -46,8 +46,8 @@ const useAchievements = () => {
         image: require("../images/achievement1.png"),
       });
     }
-
-    if (workout > 20) {
+// New Achievement for working out for more than 20 times
+    if (workout > 20 ) {
       newAchievements.push({
         id: 5,
         name: "Workout Warrior",
@@ -64,8 +64,8 @@ const useAchievements = () => {
         image: require("../images/dumbbell.png"),
       });
     }
-
-    if (minutes > 15) {
+    //New Achievement for working out for more than 15 minutes
+    if (minutes > 15 ) {
       newAchievements.push({
         id: 7,
         name: "Endurance Enthusiast",
@@ -82,7 +82,7 @@ const useAchievements = () => {
       });
     }
 
-
+// New Achievement for working out 50 + times, 50+ minutes and burning more than 100 calories
     if (workout > 50 && minutes > 50 && calories > 50) {
       newAchievements.push({
         id: 9,
@@ -91,9 +91,77 @@ const useAchievements = () => {
         image: require("../images/podium.png"),
       });
     }
+// New Achievement for working out for more than 30 times
+    if (workout > 30) {
+      newAchievements.push({
+        id: 10,
+        name: "Seasoned Sweater",
+        description: "Completed 30+ Workouts! You're getting good at this.",
+        image: require("../images/achievement5.png"), 
+      });
+    }
+
+    // New Achievement for burning more than 100 calories
+    if (calories > 100) {
+      newAchievements.push({
+        id: 11,
+        name: "Calorie Commander",
+        description: "Burn more than 100 calories! Now we're cooking.",
+        image: require("../images/achievement6.png"), 
+      });
+    }
+
+    // New Achievement for working out for more than 30 minutes
+    if (minutes > 30) {
+      newAchievements.push({
+        id: 12,
+        name: "Marathon Maven",
+        description: "You've worked out for over 30 minutes! What stamina!",
+        image: require("../images/excellence.png"), 
+      });
+    }
+
+    // New Achievement for completing 50 workouts and burning 200 calories
+    if (workout > 50 && calories > 200) {
+      newAchievements.push({
+        id: 13,
+        name: "Ultimate Unstoppable",
+        description: "50+ Workouts and 200+ calories burnt! You are unstoppable.",
+        image: require("../images/workoutbadge1.png"), 
+      });
+    }
+    //New Achievement for gaining over 100 experience
+    if (xp > 100) {
+      newAchievements.push({
+          id: 10,
+          name: "XP Collector",
+          description: "You've earned over 100 XP! You must've spent alot of time!",
+          image: require("../images/calendar.png"),
+      });
+  }
+  
+  //New Achievement for gaining over 500 experience
+  if (xp > 500) {
+      newAchievements.push({
+          id: 11,
+          name: "XP Master",
+          description: "You've earned over 500 XP!",
+          image: require("../images/oblique.png"),
+      });
+  }
+  
+  //New Achievement for gaining over 1000 experience
+  if (xp > 1000) {
+      newAchievements.push({
+          id: 12,
+          name: "XP Legend",
+          description: "You've earned over 1000 XP!",
+          image: require("../images/competition.png"),
+      });
+  }
 
     setAchievements(newAchievements);
-  }, [workout, minutes, calories]);
+  }, [workout, minutes, calories,xp]);
 
   return achievements;
 };

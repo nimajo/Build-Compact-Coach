@@ -2,10 +2,7 @@ import React, { useState, useEffect, useCallback, useContext } from "react";
 import { Text, View, SafeAreaView, ScrollView, Alert } from "react-native";
 import { auth, db } from "../firebase";
 import {
-  collection,
-  getDocs,
   doc,
-  getDocFromCache,
   getDoc,
 } from "firebase/firestore";
 import { Button } from "@rneui/themed";
