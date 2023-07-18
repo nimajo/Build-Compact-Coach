@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#ddd', //seperates the exercises
+    borderBottomColor: '#ddd', //seperates the exercises with gray border
   },
   textContainer: {
     flex: 1,
