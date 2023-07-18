@@ -7,308 +7,339 @@ export default [
     description: "Full Body Session, 6 Exercises",
     excersises: [
       {
-        id: "10",
+        id: "1",
         image:
-          "https://fitnessprogramer.com/wp-content/uploads/2021/05/Jumping-jack.gif",
+          "https://media0.giphy.com/media/ckMk3RKUK29lziaspI/giphy.gif?cid=ecf05e47fcvwk0u7fdgvw0wa5phk61028wfn0qa52sb4h90h&ep=v1_gifs_search&rid=giphy.gif&ct=g",
         name: "JUMPING JACKS",
-        sets: 10,
+        sets: 5,
+        reps: 8,
       },
+      {
+        id: "2",
+        image:
+          "https://media2.giphy.com/media/JZPaw2Y2oENHcZrHja/giphy.gif?cid=ecf05e472dqonb61g35niq14vqng12hlovzzzjaadf9u9ytl&ep=v1_gifs_related&rid=giphy.gif&ct=g",
+        name: "INCLINE PUSH-UPS",
+        sets: 5,
+        reps: 8,
+      },
+      {
+        id: "3",
+        image:
+          "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExMml5d2loenM2YXJqbG5kaDlncHE3enlkbnBvbXYzdXlxamtleDRvbCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/SCNuXEjypn8SvHsjlE/giphy.gif",
+        name: "PLANK PUSH-UPS",
+        sets: 5,
+        reps: 8,
+      },
+      {
+        id: "4",
+        image:
+          "https://media1.giphy.com/media/g8o0X8zCcnJJYTsxXr/giphy.gif",
+        name: "LATERAL JUMP",
+        sets: 5,
+        reps: 8,
+      },
+      {
+        id: "5",
+        image:
+          "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjJtbzFveDh1Z3I0NHFydmk0dWVxajZ2d2JyY2dxb2htdWhxOGhrMSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/KxuGSIZU1QZfRiRx4h/giphy.gif",
+        name: "BURPEES",
+        sets: 3,
+        reps: 8,
+      },
+      {
+        id: "6",
+        image:
+          "https://media2.giphy.com/media/FzYBecqnhBPKMdmkzW/giphy.gif",
+        name: "SQUAT",
+        sets: 5,
+        reps: 8,
+      },
+    ],
+  },
+  {
+    id: "10",
+    image:
+      "https://hips.hearstapps.com/hmg-prod/images/workouts/2016/03/crunch-1457102356.gif",
+    name: "ABS BEGINNER | BODY WEIGHT",
+    description: "ABS CHALLENGE",
+    excersises: [
       {
         id: "11",
         image:
-          "https://www.inspireusafoundation.org/wp-content/uploads/2023/03/incline-push-up.gif",
-        name: "INCLINE PUSH-UPS",
-        sets: 8,
+          "https://media.giphy.com/media/yHf1tYhftuPXSlMdqG/giphy.gif",
+        name: "CROSS CRUNCH",
+        sets: 4,
+        reps: 8,
       },
       {
         id: "12",
         image:
-          "https://fitnessprogramer.com/wp-content/uploads/2022/02/Cross-Body-Push-up_Plyometric.gif",
-        name: "CROSS BODY PUSH-UP",
-        sets: 8,
+          "https://media.giphy.com/media/jsYmets3thkLhcvZ43/giphy.gif",
+        name: "MOUNTAIN CLIMBERS",
+        sets: 4,
+        reps: 8,
       },
       {
         id: "13",
         image:
-          "https://fitnessprogramer.com/wp-content/uploads/2021/02/SNAP-JUMPS.gif",
-        name: "SNAP JUMPS",
-        sets: 10,
+          "https://media2.giphy.com/media/huHYI809mgwMw/giphy.gif?cid=ecf05e476cfbw68792amrfu74i8shh1fo9ave3tc5vg80ofu&ep=v1_gifs_search&rid=giphy.gif&ct=g",
+        name: "CRUNCH",
+        sets: 4,
+        reps: 10,
+
       },
       {
         id: "14",
         image:
-          "https://fitnessprogramer.com/wp-content/uploads/2021/02/burpees.gif",
-        name: "BURPEES",
-        sets: 8,
+          "https://media.giphy.com/media/35EH7kLQiMM1YWYmUI/giphy.gif",
+        name: "SIT-UP",
+        sets: 5,
+        reps: 8,
       },
       {
         id: "15",
         image:
-          "https://fitnessprogramer.com/wp-content/uploads/2021/04/Triceps-dips-on-floors.gif",
-        name: "TRICEP DIP",
-        sets: 10,
-      },
-    ],
-  },
-  {
-    id: "1",
-    image:
-      "https://hips.hearstapps.com/hmg-prod/images/workouts/2016/03/crunch-1457102356.gif",
-    name: "ABS BEGINNER | BODY WEIGHT",
-    description: "7x4 CHALLENGE",
-    excersises: [
-      {
-        id: "90",
-        image:
-          "https://fitnessprogramer.com/wp-content/uploads/2022/07/Cross-Crunch.gif",
-        name: "CROSS CRUNCH",
-        sets: 6,
-      },
-      {
-        id: "91",
-        image:
-          "https://fitnessprogramer.com/wp-content/uploads/2021/02/Mountain-climber.gif",
-        name: "MOUNTAIN CLIMBERS",
-        sets: 5,
-      },
-      {
-        id: "92",
-        image:
-          "https://fitnessprogramer.com/wp-content/uploads/2021/02/Bicycle-Crunch.gif",
-        name: "BICYCLE CRUNCH",
-        sets: 6,
-      },
-      {
-        id: "94",
-        image:
-          "https://fitnessprogramer.com/wp-content/uploads/2021/02/Sit-ups.gif",
-        name: "SIT-UP",
-        sets: 5,
-      },
-      {
-        id: "95",
-        image:
-          "https://fitnessprogramer.com/wp-content/uploads/2021/02/plank.gif",
+          "https://media.giphy.com/media/ZcteOOkovIh9HaVFjT/giphy.gif",
         name: "PLANK",
-        sets: 6,
+        sets: 3,
+        reps: 8,
       },
     ],
   },
   {
-    id: "2",
+    id: "20",
     image:
       "https://i.pinimg.com/originals/cf/28/9c/cf289c50010e7f7c5b6635d1d27fe095.gif",
     name: "ARM BEGINNER | EQUIPTMENT",
-    description: "7x4 CHALLENGE",
+    description: "ARM WORKOUT CHALLENGE",
     excersises: [
-      {
-        id: "70",
-        image:
-          "https://post.healthline.com/wp-content/uploads/2020/06/400x400_How_to_do_Zac_Efrons_Baywatch_Workout_Dumbbell_Lateral_Raise.gif",
-        name: "ARM RAISES",
-        sets: 8,
-      },
-      {
-        id: "71",
-        image: "https://thumbs.gfycat.com/CompleteZigzagFossa-max-1mb.gif",
-        name: "TRICEP DIPS",
-        sets: 10,
-      },
-      {
-        id: "72",
-        image:
-          "https://thumbs.gfycat.com/MisguidedAridAlaskanmalamute-max-1mb.gif",
-        name: "DIAMOND_PUSHUP",
-        sets: 10,
-      },
-      {
-        id: "73",
-        image: "https://c.tenor.com/gI-8qCUEko8AAAAC/pushup.gif",
-        name: "PUSH-UPS",
-        sets: 10,
-      },
-      {
-        id: "74",
-        image:
-          "https://i.pinimg.com/originals/8c/53/27/8c532774e4e1c524576bf1fb829ad895.gif",
-        name: "DUMBELL CURL",
-        sets: 11,
-      },
-      {
-        id: "75",
-        image:
-          "https://www.vissco.com/wp-content/uploads/animation/sub/inch-worm.gif",
-        name: "INCH WORMS",
-        sets: 5,
-      },
-      {
-        id: "76",
-        image:
-          "https://c.tenor.com/jqwaOmRs-7gAAAAC/tricep-kick-back-tricep.gif",
-        name: "TRICEP LIFT",
-        sets: 8,
-      },
-    ],
-  },
-  {
-    id: "3",
-    image:
-      "https://hips.hearstapps.com/hmg-prod/images/workouts/2017/04/inclinedumbbellbenchpress-1492108229.gif?crop=1xw:1xh;center,top&resize=980:*",
-    name: "CHEST BEGINNER | EQUIPTMENT",
-    description: "7x4 CHALLENGE",
-    excersises: [
-      {
-        id: "20",
-        image:
-          "https://i.pinimg.com/originals/ff/cf/40/ffcf40474f0758dfedebc823f5532aa1.gif",
-        name: "DECLINE PUSH-UPS",
-        sets: 9,
-      },
       {
         id: "21",
         image:
-          "https://image.2bstronger.com/article/fitness/the-14-toughest-do-anywhere-workout-moves-56348/1006.gif",
-        name: "HINDU PUSH-UPS",
-        sets: 10,
+          "https://hips.hearstapps.com/menshealth-uk/main/assets/curlsthor3.gif?crop=1xw:1xh;center,top&resize=980:*",
+        name: "ALTERNATING BICEP CURL",
+        sets: 4,
+        reps: 8,
       },
       {
         id: "22",
-        image: "https://thumbs.gfycat.com/TheseRigidBorer-size_restricted.gif",
-        name: "SHOULDER STRETCH",
-        sets: 5,
+        image: "https://hips.hearstapps.com/menshealth-uk/main/assets/ez-bar-curl.gif?crop=0.5337579617834395xw:1xh;center,top&resize=980:*",
+        name: "EZ BAR CURL",
+        sets: 4,
+        reps: 8,
       },
       {
         id: "23",
         image:
-          "https://thumbs.gfycat.com/AlertAfraidAldabratortoise-max-1mb.gif",
-        name: "COBRA STRETCH",
+          "https://hips.hearstapps.com/menshealth-uk/main/assets/skullcrushergif.gif?crop=0.5625xw:1xh;center,top&resize=980:*",
+        name: "LYING TRICEP EXTENSION",
         sets: 4,
+        reps: 8,
+      },
+      {
+        id: "24",
+        image: "https://hips.hearstapps.com/menshealth-uk/main/assets/triceppulldown.gif?crop=0.604xw:1.00xh;0.187xw,0&resize=980:*",
+        name: "CABLE PRESSDOWN",
+        sets: 4,
+        reps: 8,
       },
       {
         id: "25",
         image:
-          "https://media4.popsugar-assets.com/files/thumbor/BaWEAcCjtJEjiwf3PqJHnZ_S23A/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2016/08/10/766/n/1922729/1eae2dcf3d395379_PushUpTwist.gif",
-        name: "PUSH-UP & ROTATION",
-        sets: 12,
+          "https://hips.hearstapps.com/menshealth-uk/main/assets/how-to-do-the-single-arm-dumbbell-tricep-extension.gif?crop=0.8598726114649682xw:1xh;center,top&resize=980:*",
+        name: "DUMBBELL OVERHEAD EXTENSION",
+        sets: 4,
+        reps: 8,
       },
       {
         id: "26",
         image:
-          "https://media3.popsugar-assets.com/files/thumbor/0Xiqpo7pxrKz5CKcRl7XYrKegko/fit-in/1024x1024/filters:format_auto-!!-:strip_icc-!!-/2014/02/27/847/n/1922729/1baf9ec0f5ce4ea9_burpee.3.gif",
-        name: "BURPEES",
-        sets: 10,
+          "https://hips.hearstapps.com/menshealth-uk/main/assets/dips.gif?crop=0.5477707006369427xw:1xh;center,top&resize=980:*",
+        name: "DIPS",
+        sets: 4,
+        reps: 8,
+      },
+      {
+        id: "27",
+        image:
+          "https://media.tenor.com/-Pq0I_p6kG0AAAAC/skulls.gif",
+        name: "SKULLCRUSHER",
+        sets: 4,
+        reps: 8,
       },
     ],
   },
   {
-    id: "4",
+    id: "30",
+    image:
+      "https://hips.hearstapps.com/menshealth-uk/main/assets/squatbb.gif?crop=0.8431528662420382xw:1xh;center,top&resize=980:*",
+    name: "LEGS | EQUIPTMENT",
+    description: "CHEST BEGINNER",
+    excersises: [
+      {
+        id: "31",
+        image:
+          "https://hips.hearstapps.com/menshealth-uk/main/assets/legextension.gif?crop=0.9992922859164897xw:1xh;center,top&resize=980:*",
+        name: "LEG EXTENSION",
+        sets: 4,
+        reps: 10,
+      },
+      {
+        id: "32",
+        image:
+          "https://hips.hearstapps.com/menshealth-uk/main/assets/how-to-do-the-leg-press.gif?crop=1.00xw:0.845xh;0,0.0311xh&resize=980:*",
+        name: "LEG PRESS",
+        sets: 4,
+        reps: 8,
+      },
+      {
+        id: "33",
+        image: "https://hips.hearstapps.com/menshealth-uk/main/assets/dumbbell-lunge.gif?crop=0.453xw:1.00xh;0.292xw,0&resize=980:*",
+        name: "DUMBBBELL LUNGE",
+        sets: 4,
+        reps: 8,
+      },
+      {
+        id: "34",
+        image:
+          "https://hips.hearstapps.com/menshealth-uk/main/assets/squatbb.gif?crop=0.8431528662420382xw:1xh;center,top&resize=980:*",
+        name: "BARBELL SQUAT",
+        sets: 4,
+        reps: 8,
+      },
+      {
+        id: "35",
+        image:
+          "https://media.tenor.com/dE7yo5T973EAAAAC/calves-raise.gif",
+        name: "CALF RAISE",
+        sets: 4,
+        reps: 8,
+      },
+    ],
+  },
+  {
+    id: "40",
     image:
       "https://hips.hearstapps.com/hmg-prod/images/workouts/2016/03/frontraise-1456955633.gif",
     name: "CHEST + SHOULDERS + TRICEP | EQUIPTMENT",
-    description: "7x4 CHALLENGE",
+    description: "PUSH DAY",
     excersises: [
       {
-        id: "70",
+        id: "41",
         image:
-          "https://post.healthline.com/wp-content/uploads/2020/06/400x400_How_to_do_Zac_Efrons_Baywatch_Workout_Dumbbell_Lateral_Raise.gif",
-        name: "ARM RAISES",
-        sets: 8,
+          "https://hips.hearstapps.com/menshealth-uk/main/assets/bench-press.gif?resize=980:*",
+        name: "BENCH PRESS",
+        sets: 4,
+        reps: 8,
       },
       {
-        id: "71",
-        image: "https://thumbs.gfycat.com/CompleteZigzagFossa-max-1mb.gif",
+        id: "42",
+        image: "https://hips.hearstapps.com/menshealth-uk/main/assets/dips.gif?crop=0.5477707006369427xw:1xh;center,top&resize=980:*",
         name: "TRICEP DIPS",
-        sets: 10,
+        sets: 4,
+        reps: 8,
       },
       {
-        id: "72",
+        id: "43",
         image:
-          "https://thumbs.gfycat.com/MisguidedAridAlaskanmalamute-max-1mb.gif",
-        name: "DIAMOND_PUSHUP",
-        sets: 10,
+          "https://hips.hearstapps.com/menshealth-uk/main/assets/how-to-do-the-seated-shoulder-press-dumbbell.gif?resize=980:*",
+        name: "SHOULDER PRESS",
+        sets: 4,
+        reps: 8,
       },
       {
-        id: "73",
+        id: "44",
         image: "https://c.tenor.com/gI-8qCUEko8AAAAC/pushup.gif",
         name: "PUSH-UPS",
-        sets: 10,
+        sets: 4,
+        reps: 8,
       },
       {
-        id: "74",
+        id: "45",
         image:
-          "https://i.pinimg.com/originals/8c/53/27/8c532774e4e1c524576bf1fb829ad895.gif",
-        name: "DUMBELL CURL",
-        sets: 11,
+          "https://hips.hearstapps.com/menshealth-uk/main/assets/how-to-do-a-lateral-raise.gif?crop=0.563xw:1.00xh;0.216xw,0&resize=980:*",
+        name: "LATERAL RAISE",
+        sets: 4,
+        reps: 8,
       },
       {
-        id: "75",
+        id: "46",
         image:
-          "https://www.vissco.com/wp-content/uploads/animation/sub/inch-worm.gif",
-        name: "INCH WORMS",
-        sets: 5,
+          "https://hips.hearstapps.com/menshealth-uk/main/assets/triceppulldown.gif?crop=0.604xw:1.00xh;0.187xw,0&resize=980:*",
+        name: "CABLE PRESSDOWN",
+        sets: 4,
+        reps: 8,
       },
       {
-        id: "76",
+        id: "47",
         image:
-          "https://c.tenor.com/jqwaOmRs-7gAAAAC/tricep-kick-back-tricep.gif",
-        name: "TRICEP LIFT",
-        sets: 8,
+          "https://hips.hearstapps.com/menshealth-uk/main/assets/incline-bench-press.gif?crop=1.00xw:0.845xh;0,0.137xh&resize=980:*",
+        name: "INCLINE BENCH PRESS",
+        sets: 4,
+        reps: 8,
       },
     ],
   },
   {
-    id: "4",
+    id: "50",
     image:
-      "https://hips.hearstapps.com/hmg-prod/images/12-paused-explosive-deadlift-lr-1579279725.gif",
+      "https://hips.hearstapps.com/menshealth-uk/main/assets/dumbbell-single-arm-row.gif?crop=1.00xw:0.917xh;0,0.0699xh&resize=980:*",
     name: "BACK + BICEP | EQUIPTMENT",
-    description: "7x4 CHALLENGE",
+    description: "PULL DAY",
     excersises: [
       {
-        id: "70",
+        id: "51",
         image:
           "https://post.healthline.com/wp-content/uploads/2020/06/400x400_How_to_do_Zac_Efrons_Baywatch_Workout_Dumbbell_Lateral_Raise.gif",
         name: "ARM RAISES",
-        sets: 8,
+        sets: 4,
+        reps: 8,
       },
       {
-        id: "71",
+        id: "52",
         image: "https://thumbs.gfycat.com/CompleteZigzagFossa-max-1mb.gif",
         name: "TRICEP DIPS",
-        sets: 10,
+        sets: 4,
+        reps: 8,
       },
       {
-        id: "72",
+        id: "53",
         image:
           "https://thumbs.gfycat.com/MisguidedAridAlaskanmalamute-max-1mb.gif",
         name: "DIAMOND_PUSHUP",
-        sets: 10,
+        sets: 4,
+        reps: 8,
       },
       {
-        id: "73",
+        id: "54",
         image: "https://c.tenor.com/gI-8qCUEko8AAAAC/pushup.gif",
         name: "PUSH-UPS",
-        sets: 10,
+        sets: 4,
+        reps: 8,
       },
       {
-        id: "74",
+        id: "55",
         image:
-          "https://i.pinimg.com/originals/8c/53/27/8c532774e4e1c524576bf1fb829ad895.gif",
-        name: "DUMBELL CURL",
-        sets: 11,
+          "https://hips.hearstapps.com/menshealth-uk/main/assets/ez-bar-curl.gif?crop=1xw:1xh;center,top&resize=980:*",
+        name: "DUMBELL/BARBELL CURL",
+        sets: 4,
+        reps: 8,
       },
       {
-        id: "75",
+        id: "56",
         image:
-          "https://www.vissco.com/wp-content/uploads/animation/sub/inch-worm.gif",
-        name: "INCH WORMS",
-        sets: 5,
+          "https://hips.hearstapps.com/menshealth-uk/main/assets/bent-over-row.gif?crop=1.00xw:0.920xh;0,0.0803xh&resize=980:*",
+        name: "BARBELL BENT-OVER ROWS",
+        sets: 4,
+        reps: 10,
       },
       {
-        id: "76",
+        id: "57",
         image:
-          "https://c.tenor.com/jqwaOmRs-7gAAAAC/tricep-kick-back-tricep.gif",
-        name: "TRICEP LIFT",
-        sets: 8,
+          "https://hips.hearstapps.com/menshealth-uk/main/assets/latpull.gif?resize=980:*",
+        name: "LAT PULLDOWN",
+        sets: 4,
+        reps: 12,
       },
     ],
   },

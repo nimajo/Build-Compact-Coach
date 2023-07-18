@@ -1,6 +1,6 @@
 // achievements.js
 //Contains the Achievements
-//Set it to workout == 0 for testing purposes
+//Set it to workout >= 0 for testing purposes
 import { useState, useEffect, useContext } from "react";
 import { WorkoutItems } from "../Context";
 
@@ -29,7 +29,7 @@ const useAchievements = () => {
       });
     }
 
-    if (minutes > 10) { //set to 0 for testing reasons
+    if (minutes > 10) { 
       newAchievements.push({
         id: 3,
         name: "Time Keeper",
@@ -38,7 +38,7 @@ const useAchievements = () => {
       });
     }
 
-    if (calories > 10) {//set to 0 for testing
+    if (calories > 10) {
       newAchievements.push({
         id: 4,
         name: "Calorie Burner",

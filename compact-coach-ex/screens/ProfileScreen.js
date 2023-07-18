@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Text,
   View,
@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   ScrollView,
   Alert,
+  Linking,
 } from "react-native";
 import { auth, db } from "../firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
@@ -17,6 +18,7 @@ import { Button } from "@rneui/themed";
 import * as ImagePicker from "expo-image-picker";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import useAchievements from "../data/achievements";
+import { WorkoutItems } from "../Context";
 const ProfileScreen = () => {
   const user = auth.currentUser;
   const navigation = useNavigation();
@@ -24,10 +26,13 @@ const ProfileScreen = () => {
   const [latestWeight, setLatestWeight] = useState(null);
   const [profilePictureUrl, setProfilePictureUrl] = useState(null);
   const achievements = useAchievements();
+  const { workout, minutes, calories, xp, } =
+  useContext(WorkoutItems);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Used for the Text at the top
         const docRef = doc(db, "users", user.uid);
         const docSnap = await getDoc(docRef, { source: "server" }); // fetch from server
         if (docSnap.exists()) {
@@ -101,8 +106,8 @@ const ProfileScreen = () => {
       .then(() => {
         navigation.replace("Login");
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        console.log(error);
       });
   };
 
@@ -129,7 +134,8 @@ const ProfileScreen = () => {
           {profileData && (
             <Text className="capitalize flex-row text-center text-xl leading-relaxed font-light ">
               Name : {profileData.fname} {"\n"}
-              Current Weight: {latestWeight} kg
+              Current Weight: {latestWeight} kg {"\n"}
+              Experience Points : {xp}
             </Text>
           )}
         </View>
@@ -169,7 +175,9 @@ const ProfileScreen = () => {
                 </TouchableOpacity>
               ))}
             </View>
+            
           </View>
+          
         </View>
 
         {/** SignOut Button */}
@@ -193,6 +201,7 @@ const ProfileScreen = () => {
           }}
           titleStyle={{ fontWeight: "bold" }}
         />
+        <Text style={styles.attribution} title="workout icons" onPress={() => Linking.openURL('https://www.flaticon.com/free-icons/workout')}>Workout icons created by Freepik - Flaticon</Text>
       </ScrollView>
     </SafeAreaView>
   );
@@ -231,6 +240,11 @@ const styles = StyleSheet.create({
   achievementDescription: {
     textAlign: "center",
   },
+  attribution:{
+    textAlign:"center",
+    fontSize:11
+  },
+
 });
 
 export default ProfileScreen;

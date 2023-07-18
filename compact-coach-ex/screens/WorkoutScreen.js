@@ -39,6 +39,7 @@ const WorkoutScreen = () => {
             <View style={styles.textContainer}>
               <Text style={styles.exerciseName}>{item.name}</Text>
               <Text style={styles.sets}>{item.sets} Sets</Text>
+              <Text style={styles.sets}>{item.reps} Reps</Text>
             </View>
             {completed.includes(item.name) ? ( //ifelse completed exercise
               <Ionicons name="checkmark-done-circle" size={24} color="green" />
@@ -88,8 +89,10 @@ const styles = StyleSheet.create({
   exerciseImage: {
     width: 90,
     height: 90,
-    borderRadius: 45,
+    borderRadius: 20,
     marginRight: 10,
+    borderWidth:2,
+    borderColor:"#4e4c4c"
   },
   ExercisePressable: {
     flexDirection: "row",

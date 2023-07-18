@@ -41,7 +41,7 @@ const RegisterScreen = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        user.displayName = fname;
+        user.displayName = fname; //for chat , added after
         const myUserUid = user.uid;
         setDoc(doc(db, "users", myUserUid), {
           email: user.email,
@@ -52,13 +52,13 @@ const RegisterScreen = () => {
           .then(() => {
             console.log("Document successfully written!");
 
-            // Retrieve the user's document from Firestore and log the data
+            // Retrieve the user's info from Firestore and display the data
             getDoc(doc(db, "users", myUserUid))
               .then((doc) => {
                 if (doc.exists()) {
                   console.log("Document data:", doc.data());
                 } else {
-                  console.log("No such document!");
+                  console.log("No such document");
                 }
               })
               .catch((error) => {

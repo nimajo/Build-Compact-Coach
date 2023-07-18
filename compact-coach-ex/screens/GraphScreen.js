@@ -54,7 +54,7 @@ const GraphScreen = () => {
 
   const storeWeight = async () => {
     try {
-      if (weight && !isNaN(weight)) {
+      if (weight && !isNaN(weight)) { //added in testing
         // Validation to check if weight is not null and is a number
         let newWeightEntry = {
           date: moment().format("LL"),
@@ -155,7 +155,7 @@ const GraphScreen = () => {
       <TouchableOpacity style={styles.button} onPress={storeWeight}>
         <Text
           style={styles.buttonText}
-          accessibilityLabel="Type your message and use this button to submit"
+          accessibilityLabel="Type your new weight use this button to submit"
         >
           Submit Weight
         </Text>

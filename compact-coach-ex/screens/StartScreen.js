@@ -1,5 +1,5 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useLayoutEffect, useState } from "react";
+import { Text, View } from "react-native";
+import React, { useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Image } from "react-native";
@@ -38,6 +38,7 @@ const StartScreen = () => {
       <Button
         title="Start"
         onPress={() => navigation.navigate("Login")}
+        accessibilityLabel="Press to Get Started"
         buttonStyle={{
           alignItems: "center",
           backgroundColor: "#E9663B",

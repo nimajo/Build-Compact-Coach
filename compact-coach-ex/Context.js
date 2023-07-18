@@ -8,6 +8,7 @@ const WorkoutContext = ({ children }) => {
   const [calories, setCalories] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [sessions, setSessions] = useState(0);
+  const [xp, setXp] = useState(0);
   return (
     <WorkoutItems.Provider
       value={{
@@ -19,6 +20,10 @@ const WorkoutContext = ({ children }) => {
         setCalories,
         minutes,
         setMinutes,
+        sessions,
+        setSessions,
+        xp,
+        setXp,
       }}
     >
       {children}

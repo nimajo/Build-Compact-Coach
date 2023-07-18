@@ -18,7 +18,7 @@ import { WorkoutItems } from "../Context";
 import GoogleFit, { Scopes } from "react-native-google-fit";
 
 const HomeScreen = () => {
-  const { workout, minutes, calories, sessions, setSessions } =
+  const { workout, minutes, calories, xp, setXp } =
     useContext(WorkoutItems);
   const user = auth.currentUser;
   const navigation = useNavigation();
@@ -145,7 +145,7 @@ const HomeScreen = () => {
           </Text>
         </View>
 
-        {/* Text For Workouts */}
+        {/* Text For Workouts,Minutes and Kcal */}
         <View style={styles.topbar}>
           <View>
             <Text className="capitalize flex-row text-xl leading-relaxed font-semibold ">
@@ -234,6 +234,7 @@ const HomeScreen = () => {
         {/* Fitness Templates */}
 
         <FitnessTemps accessibilityLabel="Tap me to Begin Working Out!" />
+        
       </ScrollView>
     </SafeAreaView>
   );

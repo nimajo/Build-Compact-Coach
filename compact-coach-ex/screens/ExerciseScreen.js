@@ -25,7 +25,11 @@ const ExerciseScreen = () => {
   
   const currentExercise = exercises[index] || {};
 
+// VALUES USED FOR 
+  let ExperienceValue = 25; //25 xp per workout
+  let CalorieValue =5; //5 kcal per workout
   
+
   const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
 
@@ -39,6 +43,8 @@ const ExerciseScreen = () => {
     minutes,
     calories,
     setCalories,
+    xp,
+    setXp,
   } = useContext(WorkoutItems);
 
   // for starting stopwatch at the beginning of each exercise
@@ -97,7 +103,8 @@ const ExerciseScreen = () => {
     setIsActive(false);
     setCompleted((prev) => [...prev, currentExercise.name]);
     setWorkout((w) => w + 1);
-    setCalories((c) => c + 5); //Calorie Per Workout is set to 5
+    setCalories((c) => c + CalorieValue); //Calorie Per Workout is set to that value
+    setXp((exp) => exp + ExperienceValue);
     if (!isLastExercise()) {
       navigateToRest();
     } else {
@@ -109,6 +116,7 @@ const ExerciseScreen = () => {
     currentExercise.name,
     setWorkout,
     setCalories,
+    setXp,
     isLastExercise,
     navigateToRest,
     navigateToHome,
@@ -137,10 +145,12 @@ const ExerciseScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.ExerciseImagineContainer}>
       <Image
         style={styles.ExerciseImage}
         source={{ uri: currentExercise.image }}
       />
+      </View>
       <Octicons
         style={styles.backIcon}
         name="checklist"
@@ -155,8 +165,8 @@ const ExerciseScreen = () => {
       >
         {currentExercise.name}
       </Text>
-      <Text className="flex-row text-3xl font-bold" style={styles.setText}>
-        x{currentExercise.sets}
+      <Text className="flex-row text-4xl font-bold" style={styles.setText}>
+        {currentExercise.sets} Sets x {currentExercise.reps} Reps
       </Text>
 
       <View style={styles.stopwatchContainer}>
@@ -210,6 +220,8 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 300,
     resizeMode: "cover",
+    borderColor:"#ddd",
+    borderWidth: 1.75,
   },
   ExerciseName: {
     marginTop: 20,
@@ -219,7 +231,7 @@ const styles = StyleSheet.create({
   },
   setText: {
     marginTop: 20,
-    fontSize: 20,
+    fontSize: 30,
     textAlign: "center",
   },
   nextButton: {
@@ -271,5 +283,13 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 20,
     left: 20,
+    
   },
+  ExerciseImagineContainer:{
+    paddingLeft:10,
+    paddingTop:10,
+    paddingRight:10,
+
+    
+  }
 });

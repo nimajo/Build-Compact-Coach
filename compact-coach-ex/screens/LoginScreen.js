@@ -142,6 +142,7 @@ const LoginScreen = () => {
           <Button
             onPress={login}
             title="Login"
+            accessibilityLabel="Press here to log in"
             icon={{
               name: "arrow-right",
               type: "font-awesome",
@@ -173,6 +174,7 @@ const LoginScreen = () => {
               marginVertical: -50,
             }}
             title="Dont Have an account? Press Here to sign up"
+            accessibilityLabel="Press here to register for an account"
             type="clear"
             titleStyle={{ color: "#2089dc" }}
           />

@@ -17,7 +17,7 @@ import {
   query,
 } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
-import moment from 'moment'; // make sure to install moment.js
+import moment from 'moment'; 
 
 const ChatScreen = () => {
   const [user] = useAuthState(auth); //authentication state for firebase
@@ -66,7 +66,7 @@ const ChatScreen = () => {
             key={id}
             style={data.uid === user.uid ? styles.sent : styles.received}
           >
-            <Text style={styles.displayName}>{data.displayName}: </Text>
+            <Text className="capitalize" style={styles.displayName}>{data.displayName}: </Text>
             <Text style={styles.messageText}>{data.text}</Text>
             <Text style={styles.timestamp}>{moment(data.timestamp.toDate()).calendar()}</Text>
           </View>
@@ -78,6 +78,7 @@ const ChatScreen = () => {
           value={input}
           onChangeText={setInput}
           placeholder="Type a message"
+          accessibilityLabel="Enter your message here"
         />
         <Button
           title="Send"
