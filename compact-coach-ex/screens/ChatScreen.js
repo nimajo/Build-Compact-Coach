@@ -50,7 +50,7 @@ const ChatScreen = () => {
         displayName: user.displayName,
       });
 
-      setInput("");
+      setInput(""); //input is emptied after sent msg
     }
   };
 
@@ -67,8 +67,9 @@ const ChatScreen = () => {
             style={data.uid === user.uid ? styles.sent : styles.received}
           >
             <Text className="capitalize" style={styles.displayName}>{data.displayName}: </Text>
-            <Text style={styles.messageText}>{data.text}</Text>
-            <Text style={styles.timestamp}>{moment(data.timestamp.toDate()).calendar()}</Text>
+            <Text style={styles.messageText}>{data.text}</Text> 
+            {/* Add Time to Mesages */}
+            <Text style={styles.timestamp}>{moment(data.timestamp.toDate()).calendar()}</Text>  
           </View>
         ))}
       </ScrollView>

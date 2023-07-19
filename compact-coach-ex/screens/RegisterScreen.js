@@ -15,12 +15,14 @@ import { auth, db } from "../firebase";
 import { setDoc } from "firebase/firestore";
 import { doc, getDoc } from "firebase/firestore";
 
+
 const RegisterScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fname, setFname] = useState("");
   const [weight, setWeight] = useState("");
   const navigation = useNavigation();
+  const [error, setError] = useState("");
   const register = () => {
     if (email === "" || password === "" || fname === "" || weight === "") {
       Alert.alert(
@@ -57,20 +59,37 @@ const RegisterScreen = () => {
               .then((doc) => {
                 if (doc.exists()) {
                   console.log("Document data:", doc.data());
+                  
                 } else {
                   console.log("No such document");
+                  setError("System Error: Document Data Error");
                 }
               })
               .catch((error) => {
                 console.log("Error getting document:", error);
+                setError("System Error: Getting Document ");
               });
           })
           .catch((error) => {
             console.error("Error writing document: ", error);
+            setError("System Error: Writing Doc");
           });
       })
       .catch((error) => {
         console.error("Error creating user: ", error);
+        if (error.code === "auth/invalid-email") {
+          setError("Please Enter a Valid Email");
+        } else if (error.code === "auth/weak-password") {
+          setError("Weak Password, Please Enter 6 Characters or More");
+        } else if (error.code === "auth/missing-email") {
+          setError("Missing Email, Please enter a valid email");
+        } else if (error.code === "auth/missing-password") {
+          setError("Missing password, Please enter a valid password");
+        } else if (error.code === "auth/email-already-in-use") {
+          setError("This Email has Already been Registered");
+        } else {
+        setError("System Error: Creating User");
+        }
       });
   };
 
@@ -113,6 +132,7 @@ const RegisterScreen = () => {
             value={email}
             onChangeText={(text) => setEmail(text)}
             placeholderTextColor="black"
+            type='email'
           />
         </View>
         {/** Name  */}
@@ -131,6 +151,7 @@ const RegisterScreen = () => {
             value={fname}
             onChangeText={(text) => setFname(text)}
             placeholderTextColor="black"
+            required 
           />
         </View>
 
@@ -153,6 +174,7 @@ const RegisterScreen = () => {
             onChangeText={(text) => setPassword(text)}
             placeholderTextColor="black"
             secureTextEntry
+            required 
           />
         </View>
 
@@ -174,9 +196,15 @@ const RegisterScreen = () => {
             value={weight}
             onChangeText={(text) => setWeight(text)}
             placeholderTextColor="black"
+            keyboardType="numeric"
+            required 
           />
         </View>
-
+        {error ? (
+          <Text style={{ color: "red", position: "relative", marginLeft:"auto",marginRight:"auto",top:30 }}>
+            {error}
+          </Text>
+        ) : null}
         {/** Register Button  */}
         <Button
           onPress={register}
@@ -191,7 +219,7 @@ const RegisterScreen = () => {
           iconContainerStyle={{ marginLeft: 10 }}
           titleStyle={{ fontWeight: "700" }}
           buttonStyle={{
-            backgroundColor: "#E9663B",
+            backgroundColor: "#5710b7",
             borderColor: "transparent",
             borderWidth: 0,
             borderRadius: 30,

@@ -11,13 +11,15 @@ import {
 import React, { useContext } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
-import { WorkoutItems } from "../Context";
+import { WorkoutComponents } from "../Context";
 import { Entypo } from "@expo/vector-icons";
 
 const WorkoutScreen = () => {
   const route = useRoute();
   const navigation = useNavigation();
-  const { completed, setCompleted } = useContext(WorkoutItems);
+  const { completed, setCompleted } = useContext(WorkoutComponents);
+  console.log(route.params); 
+  
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -31,6 +33,7 @@ const WorkoutScreen = () => {
         />
         <Image style={styles.ImageStyle} source={{ uri: route.params.image }} />
       </View>
+      
       <Text style={styles.ExerciseList}>Exercise List</Text>
       <ScrollView style={styles.exerciseContainer}>
         {route.params.exercises.map((item, index) => (

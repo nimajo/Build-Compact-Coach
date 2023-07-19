@@ -1,6 +1,6 @@
 import React, { createContext, useState } from "react";
 
-const WorkoutItems = createContext();
+const WorkoutComponents = createContext();
 
 const WorkoutContext = ({ children }) => {
   const [completed, setCompleted] = useState([]);
@@ -10,7 +10,7 @@ const WorkoutContext = ({ children }) => {
   const [sessions, setSessions] = useState(0);
   const [xp, setXp] = useState(0);
   return (
-    <WorkoutItems.Provider
+    <WorkoutComponents.Provider
       value={{
         completed,
         setCompleted,
@@ -27,8 +27,8 @@ const WorkoutContext = ({ children }) => {
       }}
     >
       {children}
-    </WorkoutItems.Provider>
+    </WorkoutComponents.Provider>
   );
 };
 
-export { WorkoutContext, WorkoutItems };
+export { WorkoutContext, WorkoutComponents };

@@ -2,10 +2,10 @@
 //Contains the Achievements
 //Set it to workout >= 0 for testing purposes
 import { useState, useEffect, useContext } from "react";
-import { WorkoutItems } from "../Context";
+import { WorkoutComponents } from "../Context";
 
 const useAchievements = () => {
-  const { workout, minutes, calories,xp } = useContext(WorkoutItems);
+  const { workout, minutes, calories,xp } = useContext(WorkoutComponents);
   const [achievements, setAchievements] = useState([]);
 
   useEffect(() => {

@@ -5,7 +5,7 @@ export default [
     image: "https://hips.hearstapps.com/hmg-prod/images/pushup-1462808858.gif",
     name: "FULL BODY | BODY WEIGHT",
     description: "Full Body Session, 6 Exercises",
-    excersises: [
+    exercises: [
       {
         id: "1",
         image:
@@ -62,7 +62,7 @@ export default [
       "https://hips.hearstapps.com/hmg-prod/images/workouts/2016/03/crunch-1457102356.gif",
     name: "ABS BEGINNER | BODY WEIGHT",
     description: "ABS CHALLENGE",
-    excersises: [
+    exercises: [
       {
         id: "11",
         image:
@@ -112,7 +112,7 @@ export default [
       "https://i.pinimg.com/originals/cf/28/9c/cf289c50010e7f7c5b6635d1d27fe095.gif",
     name: "ARM BEGINNER | EQUIPTMENT",
     description: "ARM WORKOUT CHALLENGE",
-    excersises: [
+    exercises: [
       {
         id: "21",
         image:
@@ -175,7 +175,7 @@ export default [
       "https://hips.hearstapps.com/menshealth-uk/main/assets/squatbb.gif?crop=0.8431528662420382xw:1xh;center,top&resize=980:*",
     name: "LEGS | EQUIPTMENT",
     description: "CHEST BEGINNER",
-    excersises: [
+    exercises: [
       {
         id: "31",
         image:
@@ -223,7 +223,7 @@ export default [
       "https://hips.hearstapps.com/hmg-prod/images/workouts/2016/03/frontraise-1456955633.gif",
     name: "CHEST + SHOULDERS + TRICEP | EQUIPTMENT",
     description: "PUSH DAY",
-    excersises: [
+    exercises: [
       {
         id: "41",
         image:
@@ -286,7 +286,7 @@ export default [
       "https://hips.hearstapps.com/menshealth-uk/main/assets/dumbbell-single-arm-row.gif?crop=1.00xw:0.917xh;0,0.0699xh&resize=980:*",
     name: "BACK + BICEP | EQUIPTMENT",
     description: "PULL DAY",
-    excersises: [
+    exercises: [
       {
         id: "51",
         image:

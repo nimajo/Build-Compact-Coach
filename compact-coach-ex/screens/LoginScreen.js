@@ -153,7 +153,7 @@ const LoginScreen = () => {
             iconContainerStyle={{ marginLeft: 10 }}
             titleStyle={{ fontWeight: "700" }}
             buttonStyle={{
-              backgroundColor: "#E9663B",
+              backgroundColor: "#5710b7",
               borderColor: "transparent",
               borderWidth: 0,
               borderRadius: 30,

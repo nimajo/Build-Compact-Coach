@@ -5,10 +5,11 @@ import {
   TouchableOpacity,
   Image,
   View,
+  Alert,
 } from "react-native";
 import React, { useContext, useState, useCallback, useEffect } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { WorkoutItems } from "../Context";
+import { WorkoutComponents } from "../Context";
 import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
@@ -22,18 +23,15 @@ const ExerciseScreen = () => {
   // Extracting exercises from the route params
   const exercises = route.params?.exercises || [];
 
-  
   const currentExercise = exercises[index] || {};
 
-// VALUES USED FOR 
+  // VALUES USED FOR
   let ExperienceValue = 25; //25 xp per workout
-  let CalorieValue =5; //5 kcal per workout
-  
+  let CalorieValue = 5; //5 kcal per workout
 
   const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
 
-  
   const {
     completed,
     setCompleted,
@@ -45,7 +43,7 @@ const ExerciseScreen = () => {
     setCalories,
     xp,
     setXp,
-  } = useContext(WorkoutItems);
+  } = useContext(WorkoutComponents);
 
   // for starting stopwatch at the beginning of each exercise
   useEffect(() => {
@@ -80,7 +78,7 @@ const ExerciseScreen = () => {
 
   // Function checks if current exercise is the last exercise
   const isLastExercise = useCallback(
-    () => index + 1 >= exercises.length,
+    () => index + 1 >= exercises.length, //if index+1 is >= to the number of exercises in that template
     [index, exercises.length]
   );
 
@@ -88,7 +86,7 @@ const ExerciseScreen = () => {
   const navigateToRest = useCallback(() => {
     navigation.navigate("Rest");
     setTimeout(() => {
-      setIndex((i) => i + 1);
+      setIndex((i) => i + 1); // Current Exercise + 1
     }, 2000);
   }, [navigation]);
 
@@ -102,9 +100,9 @@ const ExerciseScreen = () => {
   const handleNextPress = useCallback(() => {
     setIsActive(false);
     setCompleted((prev) => [...prev, currentExercise.name]);
-    setWorkout((w) => w + 1);
+    setWorkout((w) => w + 1); //Workout Counter Increments
     setCalories((c) => c + CalorieValue); //Calorie Per Workout is set to that value
-    setXp((exp) => exp + ExperienceValue);
+    setXp((exp) => exp + ExperienceValue); //XP Per Workout is set to that value
     if (!isLastExercise()) {
       navigateToRest();
     } else {
@@ -124,17 +122,19 @@ const ExerciseScreen = () => {
 
   // Function for Previous press: navigate to Rest and update exercise index
   const handlePrevPress = useCallback(() => {
+    //will only skip if depedency is changed
     if (index > 0) {
       setIsActive(false);
       navigation.navigate("Rest");
       setTimeout(() => {
-        setIndex((i) => i - 1);
+        setIndex((i) => i - 1); //current exercise - 1
       }, 2000);
     }
   }, [index, setIsActive, navigation]);
 
   // Function for Skip press
   const handleSkipPress = useCallback(() => {
+    //will only skip if depedency is changed
     if (!isLastExercise()) {
       setIsActive(false);
       navigateToRest();
@@ -146,10 +146,10 @@ const ExerciseScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.ExerciseImagineContainer}>
-      <Image
-        style={styles.ExerciseImage}
-        source={{ uri: currentExercise.image }}
-      />
+        <Image
+          style={styles.ExerciseImage}
+          source={{ uri: currentExercise.image }}
+        />
       </View>
       <Octicons
         style={styles.backIcon}
@@ -174,7 +174,11 @@ const ExerciseScreen = () => {
           {("0" + Math.floor(seconds / 60)).slice(-2)} :{" "}
           {("0" + (seconds % 60)).slice(-2)}
         </Text>
-        <TouchableOpacity onPress={toggle} style={styles.pauseButton} accessibilityLabel="Tap to Pause/Resume Workout">
+        <TouchableOpacity
+          onPress={toggle}
+          style={styles.pauseButton}
+          accessibilityLabel="Tap to Pause/Resume Workout"
+        >
           {isActive ? (
             <AntDesign name="pause" size={28} color="white" />
           ) : (
@@ -183,9 +187,13 @@ const ExerciseScreen = () => {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity onPress={handleNextPress} style={styles.nextButton} accessibilityLabel="Tap to goto Next Workout">
-  <Text className="text-white font-bold text-center text-xl">NEXT</Text>
-</TouchableOpacity>
+      <TouchableOpacity
+        onPress={handleNextPress}
+        style={styles.nextButton}
+        accessibilityLabel="Tap to goto Next Workout"
+      >
+        <Text className="text-white font-bold text-center text-xl">NEXT</Text>
+      </TouchableOpacity>
 
       <TouchableOpacity style={styles.prevskipContainer}>
         <TouchableOpacity
@@ -198,11 +206,26 @@ const ExerciseScreen = () => {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={handleSkipPress} style={styles.prevskipB} accessibilityLabel="Tap to skip Workout">
+        <TouchableOpacity
+          onPress={handleSkipPress}
+          style={styles.prevskipB}
+          accessibilityLabel="Tap to skip Workout"
+        >
           <Text className="font-bold" style={styles.prevskipT}>
             Skip Exercise
           </Text>
         </TouchableOpacity>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          Alert.alert(`${currentExercise.name} For ${currentExercise.sets} Sets and ${currentExercise.reps} Reps!, Remember to Stay Hydrated!`);
+        }}
+        style={styles.DescButton}
+        accessibilityLabel="Tap to Read Description"
+      >
+        <Text className="text-white font-bold text-center text-xl">
+          DESCRIPTION
+        </Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -220,7 +243,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 300,
     resizeMode: "cover",
-    borderColor:"#ddd",
+    borderColor: "#ddd",
     borderWidth: 1.75,
   },
   ExerciseName: {
@@ -283,13 +306,17 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 20,
     left: 20,
-    
   },
-  ExerciseImagineContainer:{
-    paddingLeft:10,
-    paddingTop:10,
-    paddingRight:10,
-
-    
-  }
+  ExerciseImagineContainer: {
+    paddingLeft: 10,
+    paddingTop: 10,
+    paddingRight: 10,
+  },
+  DescButton: {
+    backgroundColor: "#2F14B8",
+    marginTop: 10,
+    padding: 15,
+    borderRadius: 15,
+    alignSelf: "center",
+  },
 });

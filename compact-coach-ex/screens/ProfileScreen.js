@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, } from "react";
 import {
   Text,
   View,
@@ -9,17 +9,15 @@ import {
   ScrollView,
   Alert,
   Linking,
-  useCallback,
+  
 } from "react-native";
-import { auth, db, storage } from "../firebase";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { auth, db,  } from "../firebase";
+import { doc, getDoc,  } from "firebase/firestore";
 import { useNavigation , useFocusEffect, } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Button } from "@rneui/themed";
-import * as ImagePicker from 'expo-image-picker';
-import useProfilePicture from "../components/ProfilePic";
 import useAchievements from "../data/achievements";
-import { WorkoutItems } from "../Context";
+import { WorkoutComponents } from "../Context";
  
 
 
@@ -29,10 +27,10 @@ const ProfileScreen = () => {
   const navigation = useNavigation();
   const [profileData, setProfileData] = useState(null);
   const [latestWeight, setLatestWeight] = useState(null);
-  const { profilePictureUrl, onChangeProfilePicture, fetchProfilePicture } = useProfilePicture(storage, db, auth);
+
 
   const achievements = useAchievements();
-  const { xp } = useContext(WorkoutItems);
+  const { xp } = useContext(WorkoutComponents);
   const [loading, setLoading] = useState(true);
 
 
@@ -62,11 +60,10 @@ const ProfileScreen = () => {
       }
     };
     fetchData();
-    fetchProfilePicture();
+  
+    setLatestWeight();
     
-  }, [user]);
-
-
+  }, [user, setLatestWeight]);
 
 
   // Sign out function
@@ -78,31 +75,16 @@ const ProfileScreen = () => {
       })
       .catch((error) => {
         console.log(error);
+        setError
       });
   };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        {/** Profile Picture and Text */}
+        {/** Text */}
         <View style={{ alignContent: "center", marginTop: 50 }}>
-          <TouchableOpacity onPress={onChangeProfilePicture}>
-            <Image
-              source={
-                profilePictureUrl
-                  ? { uri: profilePictureUrl }
-                  : require("../images/grey-pic.jpg")
-              }
-              style={{
-                width: 100,
-                height: 100,
-                borderRadius: 50,
-                alignSelf: "center",
-                borderWidth:1,
-                borderColor:"black"
-              }}
-            />
-          </TouchableOpacity>
+
           {profileData && (
             <Text className="capitalize flex-row text-center text-xl leading-relaxed font-light ">
               Name : {profileData.fname} {"\n"}

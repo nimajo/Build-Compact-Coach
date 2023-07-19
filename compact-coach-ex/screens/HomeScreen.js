@@ -1,22 +1,17 @@
 import React, { useState, useEffect, useCallback, useContext } from "react";
 import { Text, View, SafeAreaView, ScrollView, Alert } from "react-native";
 import { auth, db } from "../firebase";
-import {
-  doc,
-  getDoc,
-} from "firebase/firestore";
-import { Button } from "@rneui/themed";
+import { doc, getDoc } from "firebase/firestore";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StyleSheet } from "react-native";
-import FitnessTemps from "../components/FitnessTemps";
+import FitnessExercises from "../components/FitnessExercises";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { WorkoutItems } from "../Context";
+import { WorkoutComponents } from "../Context";
 import GoogleFit, { Scopes } from "react-native-google-fit";
 
 const HomeScreen = () => {
-  const { workout, minutes, calories, xp, setXp } =
-    useContext(WorkoutItems);
+  const { workout, minutes, calories, xp, setXp } = useContext(WorkoutComponents);
   const user = auth.currentUser;
   const navigation = useNavigation();
   const [profileData, setProfileData] = useState(null);
@@ -36,21 +31,23 @@ const HomeScreen = () => {
     GoogleFit.authorize(options)
       .then((authResult) => {
         if (authResult.success) {
-          GoogleFit.getDailyStepCountSamples({ //Steps for Current Date
+          GoogleFit.getDailyStepCountSamples({
+            //Steps for Current Date
             startDate: new Date().toISOString(),
             endDate: new Date().toISOString(),
           })
             .then((res) => {
               let totalSteps = 0;
               res.forEach((dataset) => {
-                dataset.steps.forEach((step) => { //each dataset added to totalsteps
+                dataset.steps.forEach((step) => {
+                  //each dataset added to totalsteps
                   totalSteps += step.value;
                 });
               });
               setSteps(totalSteps);
             })
             .catch((error) => {
-              console.log("GoogleFit totalStep ERROR:",error);
+              console.log("GoogleFit totalStep ERROR:", error);
             });
         }
       })
@@ -83,7 +80,7 @@ const HomeScreen = () => {
       }
     } catch (error) {
       // Catch any reading errors
-      console.log("getTotalWeightLoss ERROR:",error);
+      console.log("getTotalWeightLoss ERROR:", error);
     }
   };
 
@@ -145,32 +142,32 @@ const HomeScreen = () => {
         {/* Text For Workouts,Minutes and Kcal */}
         <View style={styles.topbar}>
           <View>
-            <Text className="capitalize flex-row text-xl leading-relaxed font-semibold ">
+            <Text className="capitalize flex-row text-xl leading-relaxed font-semibold text-white">
               {" "}
               Workouts
             </Text>
-            <Text className="flex-row  text-xl leading-relaxed font-small font-medium ">
+            <Text className="flex-row  text-xl leading-relaxed font-small font-medium text-white ">
               {" "}
               {workout}
             </Text>
           </View>
 
           <View>
-            <Text className="capitalize flex-row text-xl leading-relaxed font-semibold ">
+            <Text className="capitalize flex-row text-xl leading-relaxed font-semibold text-white">
               {" "}
               Minutes
             </Text>
-            <Text className="flex-row  text-xl leading-relaxed font-small font-medium ">
+            <Text className="flex-row  text-xl leading-relaxed font-small font-medium text-white ">
               {" "}
               {minutes.toFixed(1)}
             </Text>
           </View>
 
           <View>
-            <Text className="capitalize flex-row text-xl leading-relaxed font-semibold ">
+            <Text className="capitalize flex-row text-xl leading-relaxed font-semibold text-white ">
               Calories
             </Text>
-            <Text className="flex-row  text-xl leading-relaxed font-small font-medium ">
+            <Text className="flex-row  text-xl leading-relaxed font-small font-medium text-white ">
               {" "}
               {calories.toFixed(1)}
             </Text>
@@ -180,14 +177,14 @@ const HomeScreen = () => {
         <View style={styles.boxes}>
           <View style={styles.box1}>
             <Text
-              className="font-semibold leading-relaxed text-lg"
+              className="font-semibold leading-relaxed text-lg text-white"
               style={{ position: "absolute", top: 6, right: 29 }}
             >
               Steps
             </Text>
             <Text
               style={{ position: "absolute", top: 35, left: 40 }}
-              className="text-2xl font-extrabold"
+              className="text-2xl font-extrabold text-white"
             >
               {steps}
             </Text>
@@ -195,7 +192,7 @@ const HomeScreen = () => {
             <MaterialCommunityIcons
               name="shoe-print"
               size={30}
-              color="black"
+              color="white"
               style={{ position: "absolute", top: 40, right: 10 }}
               onPress={() => {
                 Alert.alert(`You have walked ${steps} steps today!`);
@@ -205,7 +202,7 @@ const HomeScreen = () => {
 
           <View style={styles.box2}>
             <Text
-              className="font-semibold leading-relaxed text-lg"
+              className="font-semibold leading-relaxed text-lg text-white"
               style={{ position: "absolute", top: 6, right: 6 }}
             >
               Heart Rate
@@ -213,7 +210,7 @@ const HomeScreen = () => {
             <MaterialCommunityIcons
               name="heart-pulse"
               size={30}
-              color="black"
+              color="white"
               style={{ position: "absolute", top: 40, right: 10 }}
               onPress={() => {
                 Alert.alert("You had a Heart Rate of This today");
@@ -221,7 +218,7 @@ const HomeScreen = () => {
             />
             <Text
               style={{ position: "absolute", top: 38, left: 30 }}
-              className="text-2xl font-extrabold"
+              className="text-2xl font-extrabold text-white"
             >
               99
             </Text>
@@ -230,8 +227,7 @@ const HomeScreen = () => {
 
         {/* Fitness Templates */}
 
-        <FitnessTemps accessibilityLabel="Tap me to Begin Working Out!" />
-        
+        <FitnessExercises accessibilityLabel="Tap me to Begin Working Out!" />
       </ScrollView>
     </SafeAreaView>
   );
@@ -249,7 +245,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 16,
     paddingTop: 6,
-    backgroundColor: "#f0763c",
+    backgroundColor: "#5710b7",
     margin: 15, // space from the screen edges
     padding: 15, // space from the box edges to the content
     borderRadius: 15,
@@ -270,7 +266,7 @@ const styles = StyleSheet.create({
   box1: {
     paddingHorizontal: 50,
     paddingVertical: 50,
-    backgroundColor: "#f0763c",
+    backgroundColor: "#5710b7",
     margin: 0, // space from the screen edges
     padding: 50, // space from the box edges to the content
     borderRadius: 15,
@@ -278,7 +274,7 @@ const styles = StyleSheet.create({
   box2: {
     paddingHorizontal: 50,
     paddingVertical: 50,
-    backgroundColor: "#f0763c",
+    backgroundColor: "#5710b7",
     margin: 0, // space from the screen edges
     padding: 50, // space from the box edges to the content
     borderRadius: 15,

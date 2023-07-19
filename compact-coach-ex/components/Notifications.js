@@ -2,9 +2,9 @@
 //to use import { createNotificationChannels, sendMotivationalNotification, sendWorkoutSummaryNotification, scheduleNotification } from './components/Notifications.js';
 import PushNotification from "react-native-push-notification";
 import { useState, useEffect, useContext } from "react";
-import { WorkoutItems } from "../Context";
+import { WorkoutComponents } from "../Context";
 const { workout, minutes, calories, sessions, setSessions } =
-  useContext(WorkoutItems);
+  useContext(WorkoutComponents);
 const [totalWeightLoss, setTotalWeightLoss] = useState(0);
 const getTotalWeightLoss = async () => {
   //uses the async (local) storage get total weightloss
